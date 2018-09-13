@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." name="ordbank" default="deploy">
+
+	<description>Download, extract and patch files from Norsk ordbank</description>
+
+	<property name="build.dir" location="build"/>
+	<property name="target.dir" location="/data"/>
+
+	<property name="ordbank.url" value="https://www.nb.no/sbfil/leksikalske_databaser/ordbank/20180627_norsk_ordbank_nob_2005.tar.gz"/>
+	<property name="ordbank.file" value="20180627_norsk_ordbank_nob_2005"/>
+
+	<property name="tab" value="&#x0009;"/>
+	<property name="rn" value="&#x000D;&#x000A;"/>
+
+	<target name="prepare">
+		<mkdir dir="${build.dir}"/>
+	</target>
+
+	<target name="download" depends="prepare">
+		<get dest="${build.dir}/${ordbank.file}.tar.gz" skipexisting="true" src="${ordbank.url}"/>
+	</target>
+
+	<target name="extract" depends="download">
+		<gunzip src="${build.dir}/${ordbank.file}.tar.gz"/>
+		<untar dest="${build.dir}" src="${build.dir}/${ordbank.file}.tar"/>
+		<delete file="${build.dir}/${ordbank.file}.tar"/>
+	</target>
+
+	<target name="patch" depends="extract">
+
+		<!-- 1. Remove unnecessary space from lemma 'kongeslott' -->
+		<copy file="${build.dir}/20180627_norsk_ordbank_nob_2005/lemma.txt" tofile="${build.dir}/20180627_norsk_ordbank_nob_2005/lemma.new">
+			<filterchain>
+				<replaceregex byline="true" pattern="(\t) kongeslott(\t)" replace="\1kongeslott\2"/>
+			</filterchain>
+		</copy>
+		<delete file="${build.dir}/20180627_norsk_ordbank_nob_2005/lemma.txt"/>
+		<move file="${build.dir}/20180627_norsk_ordbank_nob_2005/lemma.new" tofile="${build.dir}/20180627_norsk_ordbank_nob_2005/lemma.txt"/>
+
+		<!-- 2. Add lemma 'curlingstein' with paradigm 700 (already exists in FULLFORMSLISTE) -->
+		<echo file="${build.dir}/20180627_norsk_ordbank_nob_2005/lemma.txt" append="true">150282${tab}160593${tab}curlingstein${tab}BM_ORDBOK${rn}</echo>
+		<echo file="${build.dir}/20180627_norsk_ordbank_nob_2005/lemma_paradigme.txt" append="true">242332${tab}160593${tab}700${tab}normert${tab}2018${tab}4000${tab}${rn}</echo>
+
+		<!-- 3. Remove binding from lemma 159286 to paradigms 700 and 900 (lemma ID is missing from both LEMMA and FULLFORMSLISTE) -->
+		<copy file="${build.dir}/20180627_norsk_ordbank_nob_2005/lemma_paradigme.txt" tofile="${build.dir}/20180627_norsk_ordbank_nob_2005/lemma_paradigme.new">
+			<filterchain>
+				<linecontainsregexp negate="true">
+					<regexp pattern="\t159286\t"/>
+				</linecontainsregexp>
+			</filterchain>
+		</copy>
+		<delete file="${build.dir}/20180627_norsk_ordbank_nob_2005/lemma_paradigme.txt"/>
+		<move file="${build.dir}/20180627_norsk_ordbank_nob_2005/lemma_paradigme.new" tofile="${build.dir}/20180627_norsk_ordbank_nob_2005/lemma_paradigme.txt"/>
+
+		<!-- 4. Add lemma 'kurv' with paradigms 700 and 900 -->
+		<echo file="${build.dir}/20180627_norsk_ordbank_nob_2005/lemma.txt" append="true">150283${tab}160594${tab}kurv${tab}BM_ORDBOK${rn}</echo>
+		<echo file="${build.dir}/20180627_norsk_ordbank_nob_2005/lemma_paradigme.txt" append="true">242333${tab}160594${tab}700${tab}normert${tab}2018${tab}4000${tab}${rn}</echo>
+		<echo file="${build.dir}/20180627_norsk_ordbank_nob_2005/lemma_paradigme.txt" append="true">242334${tab}160594${tab}900${tab}normert${tab}2018${tab}4000${tab}${rn}</echo>
+
+		<!-- 5. Add paradigm 810 to lemma 'gatebarn' -->
+		<echo file="${build.dir}/20180627_norsk_ordbank_nob_2005/lemma_paradigme.txt" append="true">242335${tab}102229${tab}810${tab}normert${tab}2018${tab}4000${tab}${rn}</echo>
+
+		<!-- 6. Add paradigm 810 to lemma 'skriftebarn' -->
+		<echo file="${build.dir}/20180627_norsk_ordbank_nob_2005/lemma_paradigme.txt" append="true">242336${tab}139629${tab}810${tab}normert${tab}2018${tab}4000${tab}${rn}</echo>
+
+	</target>
+
+	<target name="deploy" depends="patch">
+		<copy todir="${target.dir}">
+			<fileset dir="${build.dir}/20180627_norsk_ordbank_nob_2005" includes="*.txt"/>
+		</copy>
+	</target>
+
+</project>

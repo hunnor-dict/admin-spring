@@ -1,0 +1,212 @@
+-- phpMyAdmin SQL Dump
+-- version 4.5.4.1deb2ubuntu2
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Feb 09, 2018 at 02:00 PM
+-- Server version: 5.7.13-0ubuntu0.16.04.2
+-- PHP Version: 7.0.25-0ubuntu0.16.04.1
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `ordbank`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `BOYING`
+--
+
+CREATE TABLE `BOYING` (
+  `BOY_NUMMER` int(2) NOT NULL,
+  `BOY_GRUPPE` varchar(20) NOT NULL,
+  `BOY_TEKST` varchar(100) NOT NULL,
+  `ORDBOK_TEKST` varchar(200)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `BOYING_GRUPPER`
+--
+
+CREATE TABLE `BOYING_GRUPPER` (
+  `BOY_GRUPPE` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `FULLFORMSLISTE`
+--
+
+CREATE TABLE `FULLFORMSLISTE` (
+  `LEMMA_ID` int(8) NOT NULL,
+  `OPPSLAG` varchar(100) NOT NULL,
+  `TAG` varchar(750) NOT NULL,
+  `PARADIGME_ID` varchar(5) NOT NULL,
+  `BOY_NUMMER` int(2) NOT NULL,
+  `FRADATO` varchar(10) NOT NULL,
+  `TILDATO` varchar(10) NOT NULL,
+  `NORMERING` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `LEMMA`
+--
+
+CREATE TABLE `LEMMA` (
+  `LEMMA_ID` int(8) NOT NULL,
+  `GRUNNFORM` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `LEMMA_PARADIGME`
+--
+
+CREATE TABLE `LEMMA_PARADIGME` (
+  `LEMMA_ID` int(8) NOT NULL,
+  `PARADIGME_ID` varchar(5) NOT NULL,
+  `NORMERING` varchar(20) DEFAULT 'normert' NOT NULL,
+  `FRADATO` varchar(10) NOT NULL,
+  `TILDATO` varchar(10) NOT NULL,
+  `KOMMENTAR` varchar(1000)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `PARADIGME`
+--
+
+CREATE TABLE `PARADIGME` (
+  `PARADIGME_ID` varchar(5) NOT NULL,
+  `BOY_GRUPPE` varchar(20) NOT NULL,
+  `ORDKLASSE` varchar(50) NOT NULL,
+  `ORDKLASSE_UTDYPING` varchar(100) DEFAULT NULL,
+  `FORKLARING` varchar(100) DEFAULT NULL,
+  `DOEME` varchar(100) DEFAULT NULL,
+  `ID` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `PARADIGME_BOYING`
+--
+
+CREATE TABLE `PARADIGME_BOYING` (
+  `PARADIGME_ID` varchar(5) NOT NULL,
+  `BOY_NUMMER` int(2) NOT NULL,
+  `BOY_GRUPPE` varchar(20) NOT NULL,
+  `BOY_UTTRYKK` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `BOYING`
+--
+ALTER TABLE `BOYING`
+  ADD PRIMARY KEY (`BOY_NUMMER`,`BOY_GRUPPE`),
+  ADD KEY `BOY_GRUPPE` (`BOY_GRUPPE`);
+
+--
+-- Indexes for table `BOYING_GRUPPER`
+--
+ALTER TABLE `BOYING_GRUPPER`
+  ADD PRIMARY KEY (`BOY_GRUPPE`);
+
+--
+-- Indexes for table `FULLFORMSLISTE`
+--
+ALTER TABLE `FULLFORMSLISTE`
+  ADD PRIMARY KEY (`LEMMA_ID`,`OPPSLAG`,`TAG`,`PARADIGME_ID`,`BOY_NUMMER`),
+  ADD KEY `OPPSLAG` (`OPPSLAG`),
+  ADD KEY `FRADATO` (`FRADATO`),
+  ADD KEY `TILDATO` (`TILDATO`),
+  ADD KEY `LEMMA_ID` (`LEMMA_ID`);
+
+--
+-- Indexes for table `LEMMA`
+--
+ALTER TABLE `LEMMA`
+  ADD PRIMARY KEY (`LEMMA_ID`);
+
+--
+-- Indexes for table `LEMMA_PARADIGME`
+--
+ALTER TABLE `LEMMA_PARADIGME`
+  ADD PRIMARY KEY (`LEMMA_ID`,`PARADIGME_ID`),
+  ADD KEY `PARADIGME_LEMMA_PARADIGME` (`PARADIGME_ID`);
+
+--
+-- Indexes for table `PARADIGME`
+--
+ALTER TABLE `PARADIGME`
+  ADD PRIMARY KEY (`PARADIGME_ID`),
+  ADD UNIQUE KEY `ID` (`ID`),
+  ADD KEY `BOY_GRUPPE` (`BOY_GRUPPE`);
+
+--
+-- Indexes for table `PARADIGME_BOYING`
+--
+ALTER TABLE `PARADIGME_BOYING`
+  ADD PRIMARY KEY (`PARADIGME_ID`,`BOY_NUMMER`,`BOY_GRUPPE`),
+  ADD KEY `BOY_NUMMER` (`BOY_NUMMER`,`BOY_GRUPPE`),
+  ADD KEY `PARADIGME_ID` (`PARADIGME_ID`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `BOYING`
+--
+ALTER TABLE `BOYING`
+  ADD CONSTRAINT `BOYING_GRUPPER_BOYING` FOREIGN KEY (`BOY_GRUPPE`) REFERENCES `BOYING_GRUPPER` (`BOY_GRUPPE`);
+
+--
+-- Constraints for table `FULLFORMSLISTE`
+--
+ALTER TABLE `FULLFORMSLISTE`
+  ADD CONSTRAINT `LEMMA_FULLFORMSLISTE` FOREIGN KEY (`LEMMA_ID`) REFERENCES `LEMMA` (`LEMMA_ID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `LEMMA_PARADIGME`
+--
+ALTER TABLE `LEMMA_PARADIGME`
+  ADD CONSTRAINT `LEMMA_LEMMA_PARADIGME` FOREIGN KEY (`LEMMA_ID`) REFERENCES `LEMMA` (`LEMMA_ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `PARADIGME_LEMMA_PARADIGME` FOREIGN KEY (`PARADIGME_ID`) REFERENCES `PARADIGME` (`PARADIGME_ID`);
+
+--
+-- Constraints for table `PARADIGME`
+--
+ALTER TABLE `PARADIGME`
+  ADD CONSTRAINT `BOYING_GRUPPER_PARADIGME` FOREIGN KEY (`BOY_GRUPPE`) REFERENCES `BOYING_GRUPPER` (`BOY_GRUPPE`);
+
+--
+-- Constraints for table `PARADIGME_BOYING`
+--
+ALTER TABLE `PARADIGME_BOYING`
+  ADD CONSTRAINT `BOYING_PARADIGME_BOYING` FOREIGN KEY (`BOY_NUMMER`,`BOY_GRUPPE`) REFERENCES `BOYING` (`BOY_NUMMER`, `BOY_GRUPPE`),
+  ADD CONSTRAINT `PARADIGME_PARADIGME_G` FOREIGN KEY (`PARADIGME_ID`) REFERENCES `PARADIGME` (`PARADIGME_ID`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
