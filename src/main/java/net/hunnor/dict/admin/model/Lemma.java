@@ -2,12 +2,16 @@ package net.hunnor.dict.admin.model;
 
 import net.hunnor.dict.admin.config.Language;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Locale;
 
 public class Lemma {
+
+  private static final Logger logger = LoggerFactory.getLogger(Lemma.class);
 
   public static final int SOURCE_ORDBANK = 0;
 
@@ -80,6 +84,9 @@ public class Lemma {
         }
         position++;
       }
+    }
+    if (firstLetter == null) {
+      logger.warn("Null first letter for {}", grunnform);
     }
     return firstLetter;
   }
