@@ -179,17 +179,21 @@ public class ExportServiceImpl implements ExportService {
 
       }
 
-      lemmata = lemmata.stream()
-          .sorted(Comparator.comparing(Lemma::getWeight)
-              .thenComparing(Lemma::getGrunnform)
-              .thenComparing(Lemma::getId))
-          .collect(Collectors.toList());
-      entry.setLemmata(lemmata);
+      List<Lemma> sortedLlemmata = sortLemma(lemmata);
+      entry.setLemmata(sortedLlemmata);
 
     }
 
     return result;
 
+  }
+
+  List<Lemma> sortLemma(List<Lemma> lemmata) {
+    return lemmata.stream()
+        .sorted(Comparator.comparing(Lemma::getWeight)
+            .thenComparing(Lemma::getGrunnform)
+            .thenComparing(Lemma::getId))
+        .collect(Collectors.toList());
   }
 
   private String inflectGrunnform(String grunnform, String paradigmeId, int boyNummer) {

@@ -316,13 +316,13 @@ public class Inflections {
 
     if (basePattern.contains("+") || basePattern.contains("%")) {
 
-      String percent = "%";
-      String plus = "+";
+      String percent;
+      String plus;
 
       String inflected = term.substring(0, term.length() - basePattern.length()) + patternValue;
 
-      int percentPos = basePattern.indexOf("%");
-      int plusPos = basePattern.indexOf("+");
+      int percentPos = basePattern.indexOf('%');
+      int plusPos = basePattern.indexOf('+');
 
       if (percentPos != -1) {
         percent = String.valueOf(term.charAt(term.length() - basePattern.length() + percentPos));
