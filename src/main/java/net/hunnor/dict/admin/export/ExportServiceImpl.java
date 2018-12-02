@@ -91,11 +91,7 @@ public class ExportServiceImpl implements ExportService {
       int boyNummer = rowSet.getInt(2);
       String boyUttrykk = rowSet.getString(3);
 
-      Map<Integer, String> map = result.get(paradigmeId);
-      if (map == null) {
-        map = new HashMap<>();
-        result.put(paradigmeId, map);
-      }
+      Map<Integer, String> map = result.computeIfAbsent(paradigmeId, key -> new HashMap<>());
       map.put(boyNummer, boyUttrykk);
 
     }
@@ -363,7 +359,7 @@ public class ExportServiceImpl implements ExportService {
         if (patternMap != null) {
           Map<Integer, String> inflForms =
               Inflections.getInflections(lemma.getGrunnform(), patternMap);
-          List<String> formSet = getInflectedFormsForPos(ids, inflForms, i);
+          List<String> formSet = getInflectedFormsForPos(ids, inflForms);
           if (!uniqueFormSet.contains(formSet)) {
             uniqueFormSet.add(formSet);
           }
@@ -372,7 +368,7 @@ public class ExportServiceImpl implements ExportService {
 
       for (int i = 0; i < uniqueFormSet.size(); i++) {
         List<String> formSet = uniqueFormSet.get(i);
-        if (formSet.size() > 0) {
+        if (!formSet.isEmpty()) {
           writerService.writeStartElement("inflPar");
           for (int j = 0; j < formSet.size(); j++) {
             writerService.writeStartElement("inflSeq");
@@ -449,7 +445,7 @@ public class ExportServiceImpl implements ExportService {
   }
 
   private List<String> getInflectedFormsForPos(
-      int[] ids, Map<Integer, String> forms, int paradigm) {
+      int[] ids, Map<Integer, String> forms) {
 
     List<String> formSet = new ArrayList<>();
     for (int i = 0; i < ids.length; i++) {

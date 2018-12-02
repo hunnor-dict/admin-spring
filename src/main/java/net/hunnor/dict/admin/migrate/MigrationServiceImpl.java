@@ -194,8 +194,7 @@ public class MigrationServiceImpl implements MigrationService {
         + " GROUP_CONCAT(DISTINCT status) AS status"
         + " FROM hn_hun_segment"
         + " WHERE status > 0"
-        + " GROUP BY id",
-        new Object[] {});
+        + " GROUP BY id");
 
     String lemmaSql = "INSERT INTO HN_HU_LEMMA"
         + " (LEMMA_ID, GRUNNFORM) VALUES (?, ?)";
@@ -232,8 +231,7 @@ public class MigrationServiceImpl implements MigrationService {
         + " GROUP_CONCAT(DISTINCT status) AS status"
         + " FROM hn_nob_segment"
         + " WHERE status > 0"
-        + " GROUP BY id",
-        new Object[] {});
+        + " GROUP BY id");
 
     lemmaSql = "INSERT INTO HN_NB_LEMMA"
         + " (LEMMA_ID, GRUNNFORM) VALUES (?, ?)";
@@ -270,9 +268,8 @@ public class MigrationServiceImpl implements MigrationService {
         jdbcTemplate.update(lemmaSql, lemmaId, grunnform);
         paradigmeId.stream()
             .filter(paradigme -> !"0".equals(paradigme))
-            .forEach(paradigme -> {
-              jdbcTemplate.update(lemmaParadigmeSql, lemmaId, paradigme);
-            });
+            .forEach(paradigme -> 
+              jdbcTemplate.update(lemmaParadigmeSql, lemmaId, paradigme));
         jdbcTemplate.update(entryLemmaSql, entryId, lemmaId, null, 0, weight, Lemma.SOURCE_HUNNOR);
 
       } else if (matchFromOrdbank.size() == 1) {

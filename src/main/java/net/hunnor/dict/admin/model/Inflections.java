@@ -337,8 +337,7 @@ public class Inflections {
 
     }
 
-    String inflected = term.substring(0, term.length() - basePattern.length()) + patternValue;
-    return inflected;
+    return term.substring(0, term.length() - basePattern.length()) + patternValue;
 
   }
 
