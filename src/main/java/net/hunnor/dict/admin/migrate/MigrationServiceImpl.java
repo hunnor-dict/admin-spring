@@ -129,8 +129,13 @@ public class MigrationServiceImpl implements MigrationService {
 
     String huSql =
         "INSERT INTO HN_HU_ENTRY (ENTRY_ID, STATUS, POS, TRANSLATION) VALUES (?, ?, ?, ?)";
-    huEntries.values().forEach(entry -> jdbcTemplate.update(
-        huSql, entry.getId(), entry.getStatus(), entry.getPos(), entry.getTranslation()));
+    huEntries.values().forEach(entry -> {
+      if (entry.getTranslation() == null) {
+        logger.warn("Translation missing for entry HU/{}", entry.getId());
+      }
+      jdbcTemplate.update(
+          huSql, entry.getId(), entry.getStatus(), entry.getPos(), entry.getTranslation());
+    });
 
     // Norwegian
 
@@ -177,8 +182,13 @@ public class MigrationServiceImpl implements MigrationService {
 
     String nbSql =
         "INSERT INTO HN_NB_ENTRY (ENTRY_ID, STATUS, POS, TRANSLATION) VALUES (?, ?, ?, ?)";
-    nbEntries.values().forEach(entry -> jdbcTemplate.update(
-        nbSql, entry.getId(), entry.getStatus(), entry.getPos(), entry.getTranslation()));
+    nbEntries.values().forEach(entry -> {
+      if (entry.getTranslation() == null) {
+        logger.warn("Translation missing for entry NB/{}", entry.getId());
+      }
+      jdbcTemplate.update(
+          nbSql, entry.getId(), entry.getStatus(), entry.getPos(), entry.getTranslation());
+    });
 
   }
 
