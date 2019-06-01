@@ -1,5 +1,7 @@
 package net.hunnor.dict.admin.export;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
@@ -23,6 +25,8 @@ import javax.xml.validation.SchemaFactory;
 @Service
 public class ParserServiceImpl implements ParserService {
 
+  private static final Logger logger = LoggerFactory.getLogger(ParserService.class);
+
   @Value("${net.hunnor.dict.admin.export.schema.location}")
   private String schemaLocation;
 
@@ -42,6 +46,13 @@ public class ParserServiceImpl implements ParserService {
     Schema schema = schemaFactory.newSchema(streamSource);
 
     factory = DocumentBuilderFactory.newInstance();
+
+    try {
+      factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+      factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+    } catch (ParserConfigurationException ex) {
+      logger.error(ex.getMessage(), ex);
+    }
 
     factory.setSchema(schema);
     factory.setIgnoringElementContentWhitespace(true);
