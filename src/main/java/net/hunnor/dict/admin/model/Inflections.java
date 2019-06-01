@@ -175,9 +175,6 @@ public class Inflections {
     codesByParadigms.put("835:836:841:842", "n");
     suffixesByParadigms.put("835:836:841:842", "-et");
 
-    codesByParadigms.put("830:831", "-met, -, -ma/-mene");
-    suffixesByParadigms.put("830:831", "-met, -, -ma/-mene");
-
     codesByParadigms.put("830:831:832:833", "-met, -/-mer, -ma/-mene");
     suffixesByParadigms.put("830:831:832:833", "-met, -/-mer, -ma/-mene");
 

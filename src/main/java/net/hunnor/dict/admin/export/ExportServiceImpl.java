@@ -166,14 +166,7 @@ public class ExportServiceImpl implements ExportService {
         }
 
         if (lemmaParadigmeTable != null) {
-          List<String> paradigmeIdList = new ArrayList<>();
-          SqlRowSet paradigmeRowSet = jdbcTemplate.queryForRowSet("SELECT PARADIGME_ID FROM "
-              + lemmaParadigmeTable + " WHERE LEMMA_ID = ?", lemmaId);
-          while (paradigmeRowSet.next()) {
-            String id = paradigmeRowSet.getString(1);
-            paradigmeIdList.add(id);
-          }
-          lemma.setParadigmeId(paradigmeIdList);
+          addParadigms(lemma, lemmaParadigmeTable);
         }
         lemmata.add(lemma);
 
@@ -186,6 +179,17 @@ public class ExportServiceImpl implements ExportService {
 
     return result;
 
+  }
+
+  private void addParadigms(Lemma lemma, String lemmaParadigmeTable) {
+    List<String> paradigmeIdList = new ArrayList<>();
+    SqlRowSet paradigmeRowSet = jdbcTemplate.queryForRowSet("SELECT PARADIGME_ID FROM "
+        + lemmaParadigmeTable + " WHERE LEMMA_ID = ?", lemma.getId());
+    while (paradigmeRowSet.next()) {
+      String id = paradigmeRowSet.getString(1);
+      paradigmeIdList.add(id);
+    }
+    lemma.setParadigmeId(paradigmeIdList);
   }
 
   List<Lemma> sortLemma(List<Lemma> lemmata) {
@@ -370,22 +374,26 @@ public class ExportServiceImpl implements ExportService {
         }
       }
 
-      for (int i = 0; i < uniqueFormSet.size(); i++) {
-        List<String> formSet = uniqueFormSet.get(i);
-        if (!formSet.isEmpty()) {
-          writerService.writeStartElement("inflPar");
-          for (int j = 0; j < formSet.size(); j++) {
-            writerService.writeStartElement("inflSeq");
-            writerService.writeAttribute("form", i + "-" + j);
-            writerService.writeCharacters(formSet.get(j));
-            writerService.writeEndElement();
-          }
-          writerService.writeEndElement();
-        }
-      }
+      writeInflectionTags(uniqueFormSet);
 
     }
 
+  }
+
+  private void writeInflectionTags(List<List<String>> uniqueFormSet) throws ExportException {
+    for (int i = 0; i < uniqueFormSet.size(); i++) {
+      List<String> formSet = uniqueFormSet.get(i);
+      if (!formSet.isEmpty()) {
+        writerService.writeStartElement("inflPar");
+        for (int j = 0; j < formSet.size(); j++) {
+          writerService.writeStartElement("inflSeq");
+          writerService.writeAttribute("form", i + "-" + j);
+          writerService.writeCharacters(formSet.get(j));
+          writerService.writeEndElement();
+        }
+        writerService.writeEndElement();
+      }
+    }
   }
 
   private void writeTranslation(String translation)
