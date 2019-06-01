@@ -70,6 +70,7 @@ public class ExportServiceTest {
   public void exportDefaultLanguage() throws ExportException {
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     exportService.export(Language.DEFAULT, outputStream);
+    assertEquals(0, outputStream.size());
   }
 
   @Test

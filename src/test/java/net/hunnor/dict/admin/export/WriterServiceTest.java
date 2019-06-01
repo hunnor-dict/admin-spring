@@ -1,5 +1,6 @@
 package net.hunnor.dict.admin.export;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doThrow;
 
 import net.sf.saxon.s9api.SaxonApiException;
@@ -17,7 +18,8 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
+
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
@@ -37,7 +39,7 @@ public class WriterServiceTest {
   @Test
   public void testWriter() throws ExportException {
 
-    OutputStream outputStream = new ByteArrayOutputStream();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     writerService.createWriter(outputStream);
 
     writerService.writeStartDocument("UTF-8", "1.0");
@@ -49,6 +51,10 @@ public class WriterServiceTest {
 
     writerService.flush();
     writerService.close();
+
+    assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+        + "<document xmlns=\"http://dict.hunnor.net\" type=\"1\">content</document>\n",
+        outputStream.toString(StandardCharsets.UTF_8));
 
   }
 
