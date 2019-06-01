@@ -184,12 +184,8 @@ public class Lemma {
 
   private String normalizeNb(String letter) {
     String normalizedLetter = letter;
-    switch (letter) {
-      case "À":
-        normalizedLetter = "A";
-        break;
-      default:
-        break;
+    if ("À".equals(letter)) {
+      normalizedLetter = "A";
     }
     return normalizedLetter;
   }
