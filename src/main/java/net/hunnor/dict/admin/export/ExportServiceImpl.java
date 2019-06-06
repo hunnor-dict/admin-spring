@@ -1,8 +1,8 @@
 package net.hunnor.dict.admin.export;
 
 import net.hunnor.dict.admin.config.Language;
+import net.hunnor.dict.admin.inflection.InflectionService;
 import net.hunnor.dict.admin.model.Entry;
-import net.hunnor.dict.admin.model.Inflections;
 import net.hunnor.dict.admin.model.Lemma;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +42,9 @@ public class ExportServiceImpl implements ExportService {
   @Autowired
   @Qualifier("NB")
   private Collator nbCollator;
+
+  @Autowired
+  private InflectionService inflectionService;
 
   @Autowired
   private ParserService parserService;
@@ -205,7 +208,7 @@ public class ExportServiceImpl implements ExportService {
     if (paradigmeId != null && boyNummer != 0) {
       Map<Integer, String> inflectionPatterns = patterns.get(paradigmeId);
       Map<Integer, String> inflectedForms =
-          Inflections.getInflections(grunnform, inflectionPatterns);
+          inflectionService.getInflections(grunnform, inflectionPatterns);
       inflectedForm = inflectedForms.get(boyNummer);
     }
     return inflectedForm;
@@ -327,7 +330,7 @@ public class ExportServiceImpl implements ExportService {
       writerService.writeEndElement();
     }
 
-    String codes = Inflections.getCodes(lemma.getParadigmeId());
+    String codes = inflectionService.getCodes(lemma.getParadigmeId());
     if (codes != null) {
       writerService.writeStartElement("inflCode");
       writerService.writeAttribute("type", "bob");
@@ -335,7 +338,7 @@ public class ExportServiceImpl implements ExportService {
       writerService.writeEndElement();
     }
 
-    String suffixes = Inflections.getSuffixes(lemma.getParadigmeId());
+    String suffixes = inflectionService.getSuffixes(lemma.getParadigmeId());
     if (suffixes != null) {
       writerService.writeStartElement("inflCode");
       writerService.writeAttribute("type", "suff");
@@ -366,7 +369,7 @@ public class ExportServiceImpl implements ExportService {
         Map<Integer, String> patternMap = patterns.get(paradigmeId);
         if (patternMap != null) {
           Map<Integer, String> inflForms =
-              Inflections.getInflections(lemma.getGrunnform(), patternMap);
+              inflectionService.getInflections(lemma.getGrunnform(), patternMap);
           List<String> formSet = getInflectedFormsForPos(ids, inflForms);
           if (!uniqueFormSet.contains(formSet)) {
             uniqueFormSet.add(formSet);

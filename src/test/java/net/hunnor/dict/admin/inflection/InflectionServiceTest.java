@@ -1,10 +1,16 @@
-package net.hunnor.dict.admin.model;
+package net.hunnor.dict.admin.inflection;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import net.hunnor.dict.admin.inflection.InflectionService;
+
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,59 +18,64 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class InflectionsTest {
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class InflectionServiceTest {
+
+  @Autowired
+  private InflectionService inflectionService;
 
   @Test
   public void testCodesNull() {
     List<String> paradigms = null;
-    assertNull(Inflections.getCodes(paradigms));
+    assertNull(inflectionService.getCodes(paradigms));
   }
 
   @Test
   public void testCodesEmpty() {
     List<String> paradigms = new ArrayList<>();
-    assertNull(Inflections.getCodes(paradigms));
+    assertNull(inflectionService.getCodes(paradigms));
   }
 
   @Test
   public void testCodes() {
     List<String> paradigms = Arrays.asList("700");
-    assertEquals("m1", Inflections.getCodes(paradigms));
+    assertEquals("m1", inflectionService.getCodes(paradigms));
   }
 
   @Test
   public void testSuffixesNull() {
     List<String> paradigms = null;
-    assertNull(Inflections.getSuffixes(paradigms));
+    assertNull(inflectionService.getSuffixes(paradigms));
   }
 
   @Test
   public void testSuffixesEmpty() {
     List<String> paradigms = new ArrayList<>();
-    assertNull(Inflections.getSuffixes(paradigms));
+    assertNull(inflectionService.getSuffixes(paradigms));
   }
 
   @Test
   public void testSuffixes() {
     List<String> paradigms = Arrays.asList("700");
-    assertEquals("-en", Inflections.getSuffixes(paradigms));
+    assertEquals("-en", inflectionService.getSuffixes(paradigms));
   }
 
   @Test
   public void testInflLemmaNull() {
-    Map<Integer, String> inflections = Inflections.getInflections(null, null);
+    Map<Integer, String> inflections = inflectionService.getInflections(null, null);
     assertNull(inflections);
   }
 
   @Test
   public void testInflPatternsNull() {
-    Map<Integer, String> inflections = Inflections.getInflections("lemma", null);
+    Map<Integer, String> inflections = inflectionService.getInflections("lemma", null);
     assertNull(inflections);
   }
 
   @Test
   public void testInflPatternsEmpty() {
-    Map<Integer, String> inflections = Inflections.getInflections("lemma", new HashMap<>());
+    Map<Integer, String> inflections = inflectionService.getInflections("lemma", new HashMap<>());
     assertNotNull(inflections);
     assertEquals(0, inflections.size());
   }
@@ -76,7 +87,7 @@ public class InflectionsTest {
     patterns.put(2, "en");
     patterns.put(3, "er");
     patterns.put(4, "ene");
-    Map<Integer, String> inflections = Inflections.getInflections("bil", patterns);
+    Map<Integer, String> inflections = inflectionService.getInflections("bil", patterns);
     assertNotNull(inflections);
     assertEquals(4, inflections.size());
     assertEquals("bil", inflections.get(1));
@@ -92,7 +103,7 @@ public class InflectionsTest {
     patterns.put(2, "en");
     patterns.put(3, "er");
     patterns.put(4, "ene");
-    Map<Integer, String> inflections = Inflections.getInflections("bil", patterns);
+    Map<Integer, String> inflections = inflectionService.getInflections("bil", patterns);
     assertNotNull(inflections);
     assertEquals(4, inflections.size());
     assertEquals("bil", inflections.get(1));
@@ -108,7 +119,7 @@ public class InflectionsTest {
     patterns.put(2, "a");
     patterns.put(3, "er");
     patterns.put(4, "ene");
-    Map<Integer, String> inflections = Inflections.getInflections("jente", patterns);
+    Map<Integer, String> inflections = inflectionService.getInflections("jente", patterns);
     assertNotNull(inflections);
     assertEquals(4, inflections.size());
     assertEquals("jente", inflections.get(1));
@@ -124,7 +135,7 @@ public class InflectionsTest {
     patterns.put(2, "%a");
     patterns.put(3, "%er");
     patterns.put(4, "%ene");
-    Map<Integer, String> inflections = Inflections.getInflections("aksel", patterns);
+    Map<Integer, String> inflections = inflectionService.getInflections("aksel", patterns);
     assertNotNull(inflections);
     assertEquals(4, inflections.size());
     assertEquals("aksel", inflections.get(1));
@@ -140,7 +151,7 @@ public class InflectionsTest {
     patterns.put(2, "++en");
     patterns.put(3, "++er");
     patterns.put(4, "++ene");
-    Map<Integer, String> inflections = Inflections.getInflections("sum", patterns);
+    Map<Integer, String> inflections = inflectionService.getInflections("sum", patterns);
     assertNotNull(inflections);
     assertEquals(4, inflections.size());
     assertEquals("sum", inflections.get(1));
@@ -156,7 +167,7 @@ public class InflectionsTest {
     patterns.put(2, "++e%en");
     patterns.put(3, "+%e");
     patterns.put(4, "+%ene");
-    Map<Integer, String> inflections = Inflections.getInflections("hammer", patterns);
+    Map<Integer, String> inflections = inflectionService.getInflections("hammer", patterns);
     assertNotNull(inflections);
     assertEquals(4, inflections.size());
     assertEquals("hammer", inflections.get(1));

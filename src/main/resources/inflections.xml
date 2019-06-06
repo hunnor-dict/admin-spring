@@ -1,0 +1,402 @@
+<inflections>
+	<inflection>
+		<paradigms>001:007:010:011:017:019</paradigms>
+		<codes>v1</codes>
+		<suffixes>-et/-a</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>001:010</paradigms>
+		<codes>v1</codes>
+		<suffixes>-et/-a</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>001:010:011</paradigms>
+		<codes>v1</codes>
+		<suffixes>-et/-a</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>001:010:011:020</paradigms>
+		<codes>v1:v2</codes>
+		<suffixes>-et/-a/-te</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>001:010:011:020:030</paradigms>
+		<codes>v1:v2:v3</codes>
+		<suffixes>-et/-a/-te/-de</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>001:010:011:021</paradigms>
+		<codes>v1:v2</codes>
+		<suffixes>-et/-a/-te</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>001:010:011:030</paradigms>
+		<codes>v1:v3</codes>
+		<suffixes>-et/-a/-de</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>001:010:011:043</paradigms>
+		<codes>v1:v4</codes>
+		<suffixes>-et/-a/-dde</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>002:012:015</paradigms>
+		<codes>v1</codes>
+		<suffixes>-et/-a</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>020</paradigms>
+		<codes>v2</codes>
+		<suffixes>-te</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>020:030</paradigms>
+		<codes>v2:v3</codes>
+		<suffixes>-te/-de</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>030</paradigms>
+		<codes>v3</codes>
+		<suffixes>-de</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>040</paradigms>
+		<codes>v4</codes>
+		<suffixes>-dde</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>040:041</paradigms>
+		<codes>v4</codes>
+		<suffixes>-dde</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>040:042</paradigms>
+		<codes>v4</codes>
+		<suffixes>-dde</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>043</paradigms>
+		<codes>v4</codes>
+		<suffixes>-dde</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>500</paradigms>
+		<codes>a1</codes>
+		<suffixes>-t, -e</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>500:504</paradigms>
+		<codes>a1:a2</codes>
+		<suffixes>-t/-, -e</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>501:503:504:512</paradigms>
+		<codes>a2:a3</codes>
+		<suffixes>-, -/-e</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>504</paradigms>
+		<codes>a2</codes>
+		<suffixes>-, -e</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>504:512</paradigms>
+		<codes>a2:a3</codes>
+		<suffixes>-, -/-e</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>504:534</paradigms>
+		<codes>a4</codes>
+		<suffixes>-et, -ete/-ede</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>508</paradigms>
+		<codes>a2</codes>
+		<suffixes>-, -e</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>513</paradigms>
+		<codes>a3</codes>
+		<suffixes>-, -</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>514</paradigms>
+		<codes>a3</codes>
+		<suffixes>-, -</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>560</paradigms>
+		<codes>a5</codes>
+		<suffixes>-ent, -ne</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>700</paradigms>
+		<codes>m1</codes>
+		<suffixes>-en</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>700:703</paradigms>
+		<codes>m1</codes>
+		<suffixes>-en</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>700:703:800:801:810:811:874:875:876:877</paradigms>
+		<codes>m1:n3</codes>
+		<suffixes>-en/-et</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>700:715:900:915</paradigms>
+		<codes>-a/-en, -/-er, -ene</codes>
+		<suffixes>-a/-en, -/-er, -ene</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>700:800:801:810:811</paradigms>
+		<codes>m1:n3</codes>
+		<suffixes>-en/-et</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>700:800:801:810:811:900</paradigms>
+		<codes>f1:m1:n3</codes>
+		<suffixes>-en/-a/-et</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>700:800:810</paradigms>
+		<codes>m1:n1</codes>
+		<suffixes>-en/-et</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>700:800:810:900</paradigms>
+		<codes>f1:m1:n1</codes>
+		<suffixes>-en/-a/-et</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>700:801:811</paradigms>
+		<codes>m1:n2</codes>
+		<suffixes>-en/-et</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>700:801:811:900</paradigms>
+		<codes>f1:m1:n2</codes>
+		<suffixes>-en/-a/-et</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>700:890</paradigms>
+		<codes>-en::n:none</codes>
+		<suffixes>-en::n:none</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>700:900</paradigms>
+		<codes>f1:m1</codes>
+		<suffixes>-en/-a</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>702</paradigms>
+		<codes>m1</codes>
+		<suffixes>-en</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>702:800:810:902</paradigms>
+		<codes>f1:m1:n1</codes>
+		<suffixes>-en/-a/-et</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>702:802:812</paradigms>
+		<codes>m1:n2</codes>
+		<suffixes>-en/-et</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>702:802:812:902</paradigms>
+		<codes>f1:m1:n2</codes>
+		<suffixes>-en/-a/-et</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>702:902</paradigms>
+		<codes>f1:m1</codes>
+		<suffixes>-en/-a</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>711:712</paradigms>
+		<codes>m2</codes>
+		<suffixes>-eren, -ere, -erne</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>711:712:720:724</paradigms>
+		<codes>m3</codes>
+		<suffixes>-eren, -ere/-re/-rer, -erne/-rene</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>711:712:721</paradigms>
+		<codes>m3</codes>
+		<suffixes>-eren, -ere/-re/-rer, -erne/-rene</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>712</paradigms>
+		<codes>m2</codes>
+		<suffixes>-eren, -ere, -erne</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>712:717:724</paradigms>
+		<codes>m3</codes>
+		<suffixes>-eren, -ere/-re/-rer, -erne/-rene</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>712:720:724</paradigms>
+		<codes>m3</codes>
+		<suffixes>-eren, -ere/-re/-rer, -erne/-rene</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>712:721:742</paradigms>
+		<codes>m3</codes>
+		<suffixes>-eren, -ere/-re/-rer, -erne/-rene</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>715</paradigms>
+		<codes>-en, -</codes>
+		<suffixes>-en, -</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>715:800:810</paradigms>
+		<codes>-en, - / n1</codes>
+		<suffixes>-en, - / n1</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>715:915</paradigms>
+		<codes>-a/-en, -, -ene</codes>
+		<suffixes>-a/-en, -, -ene</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>716</paradigms>
+		<codes>-en, -</codes>
+		<suffixes>-en, -</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>720</paradigms>
+		<codes>-en</codes>
+		<suffixes>-en</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>721</paradigms>
+		<codes>-en</codes>
+		<suffixes>-en</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>725</paradigms>
+		<codes>-men</codes>
+		<suffixes>-men</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>780</paradigms>
+		<codes>m:pl</codes>
+		<suffixes>m:pl</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>790</paradigms>
+		<codes>m:none</codes>
+		<suffixes>m:none</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>790:890</paradigms>
+		<codes>m:n:none</codes>
+		<suffixes>m:n:none</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>790:990</paradigms>
+		<codes>-a/-en, -</codes>
+		<suffixes>-a/-en, -</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>791</paradigms>
+		<codes>m:def</codes>
+		<suffixes>m:def</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>800:801:810:811</paradigms>
+		<codes>n3</codes>
+		<suffixes>-et, -/-er, -ene/-a</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>800:801:810:811:874:875:876:877</paradigms>
+		<codes>n3</codes>
+		<suffixes>-et, -/-er, -ene/-a</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>800:810</paradigms>
+		<codes>n1</codes>
+		<suffixes>-et</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>800:828</paradigms>
+		<codes>n</codes>
+		<suffixes>-et</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>801:811</paradigms>
+		<codes>n2</codes>
+		<suffixes>-et, -er, -ene/-a</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>801:811:850:851</paradigms>
+		<codes>-um, -umet/-et, -umer/-er/-a, -uma/-umene/-a/-aene</codes>
+		<suffixes>-um, -umet/-et, -umer/-er/-a, -uma/-umene/-a/-aene</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>802:804:812:814</paradigms>
+		<codes>n3</codes>
+		<suffixes>-et, -/-er, -ene/-a</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>802:812</paradigms>
+		<codes>n2</codes>
+		<suffixes>-et, -er, -ene/-a</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>810:811</paradigms>
+		<codes>-et, -/-er, -ene</codes>
+		<suffixes>-et, -/-er, -ene</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>815:816:824:825</paradigms>
+		<codes>-d(e)ret, -der/-dre, -dra/-drene</codes>
+		<suffixes>-d(e)ret, -der/-dre, -dra/-drene</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>815:816:826:827</paradigms>
+		<codes>-er, -eret, -er/-re, -ra/-rene</codes>
+		<suffixes>-er, -eret, -er/-re, -ra/-rene</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>830:831</paradigms>
+		<codes>-met, -, -ma/-mene</codes>
+		<suffixes>-met, -, -ma/-mene</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>830:831:832:833</paradigms>
+		<codes>-met, -/-mer, -ma/-mene</codes>
+		<suffixes>-met, -/-mer, -ma/-mene</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>835:836:837:838</paradigms>
+		<codes>-d(de)let, -del/dler, -dla/-dlene</codes>
+		<suffixes>-d(de)let, -del/dler, -dla/-dlene</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>835:836:841:842</paradigms>
+		<codes>n</codes>
+		<suffixes>-et</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>880</paradigms>
+		<codes>n:pl</codes>
+		<suffixes>n:pl</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>890</paradigms>
+		<codes>n:none</codes>
+		<suffixes>n:none</suffixes>
+	</inflection>
+	<inflection>
+		<paradigms>895</paradigms>
+		<codes>n:none</codes>
+		<suffixes>n:none</suffixes>
+	</inflection>
+</inflections>
