@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Service
 public class MigrationServiceImpl implements MigrationService {
 
-  private static final Logger logger = LoggerFactory.getLogger(MigrationService.class);
+  private static final Logger logger = LoggerFactory.getLogger(MigrationServiceImpl.class);
 
   @Autowired
   private JdbcTemplate jdbcTemplate;

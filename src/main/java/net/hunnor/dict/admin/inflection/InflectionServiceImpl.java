@@ -22,7 +22,7 @@ import javax.xml.transform.stream.StreamSource;
 @Service
 public final class InflectionServiceImpl implements InflectionService {
 
-  private static final Logger logger = LoggerFactory.getLogger(InflectionService.class);
+  private static final Logger logger = LoggerFactory.getLogger(InflectionServiceImpl.class);
 
   private Map<String, Inflection> inflectionMap = new HashMap<>();
 

@@ -25,7 +25,7 @@ import javax.xml.validation.SchemaFactory;
 @Service
 public class ParserServiceImpl implements ParserService {
 
-  private static final Logger logger = LoggerFactory.getLogger(ParserService.class);
+  private static final Logger logger = LoggerFactory.getLogger(ParserServiceImpl.class);
 
   @Value("${net.hunnor.dict.admin.export.schema.location}")
   private String schemaLocation;
