@@ -3,6 +3,12 @@ package net.hunnor.dict.admin.export;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doThrow;
 
+import java.io.ByteArrayOutputStream;
+import java.nio.charset.StandardCharsets;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+
 import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.Serializer;
 
@@ -16,12 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.io.ByteArrayOutputStream;
-import java.nio.charset.StandardCharsets;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

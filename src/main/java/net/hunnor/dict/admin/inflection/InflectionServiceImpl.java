@@ -1,11 +1,5 @@
 package net.hunnor.dict.admin.inflection;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.oxm.Unmarshaller;
-import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -18,6 +12,12 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.oxm.Unmarshaller;
+import org.springframework.stereotype.Service;
 
 @Service
 public final class InflectionServiceImpl implements InflectionService {
