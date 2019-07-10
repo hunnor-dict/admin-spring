@@ -197,7 +197,7 @@ public class ExportServiceTest {
     assertEquals("hnDict", hnDict.getLocalName());
 
     NodeList entryGrpList = hnDict.getElementsByTagName("entryGrp");
-    assertEquals(4, entryGrpList.getLength());
+    assertEquals(5, entryGrpList.getLength());
 
     Element entryGrpB = (Element) entryGrpList.item(0);
     assertEquals("B", entryGrpB.getAttribute("head"));
@@ -217,7 +217,13 @@ public class ExportServiceTest {
     NodeList entryListJ = entryGrpJ.getElementsByTagName("entry");
     assertEquals(1, entryListJ.getLength());
 
-    Element entryGrpR = (Element) entryGrpList.item(3);
+    Element entryGrpM = (Element) entryGrpList.item(3);
+    assertEquals("M", entryGrpM.getAttribute("head"));
+
+    NodeList entryListM = entryGrpM.getElementsByTagName("entry");
+    assertEquals(1, entryListM.getLength());
+
+    Element entryGrpR = (Element) entryGrpList.item(4);
     assertEquals("R", entryGrpR.getAttribute("head"));
 
     NodeList entryListR = entryGrpR.getElementsByTagName("entry");
@@ -754,7 +760,7 @@ public class ExportServiceTest {
   }
 
   @Test
-  public void testEntry11() throws XPathExpressionException {
+  public void testNbEntry11() throws XPathExpressionException {
 
     XPath xpath = getXPath();
 
@@ -793,6 +799,55 @@ public class ExportServiceTest {
 
     NodeList inflParList = form.getElementsByTagName("inflPar");
     assertEquals(0, inflParList.getLength());
+
+  }
+
+  @Test
+  public void testNbEntry12() throws XPathExpressionException {
+
+    XPath xpath = getXPath();
+
+    Element entry = (Element) xpath
+        .compile("/h:hnDict/h:entryGrp/h:entry[@id = '12']")
+        .evaluate(documentNb, XPathConstants.NODE);
+
+    assertNotNull(entry);
+
+    NodeList formList = (NodeList) xpath
+        .compile("h:formGrp/h:form")
+        .evaluate(entry, XPathConstants.NODESET);
+    assertEquals(1, formList.getLength());
+
+    Element form = (Element) formList.item(0);
+    assertTrue(form.hasAttributes());
+    assertEquals(1, form.getAttributes().getLength());
+    assertEquals("yes", form.getAttribute("primary"));
+
+    NodeList orthList = form.getElementsByTagName("orth");
+    assertEquals(1, orthList.getLength());
+    Element orth = (Element) orthList.item(0);
+    assertTrue(orth.hasAttributes());
+    assertEquals(1, orth.getAttributes().getLength());
+    assertEquals("0", orth.getAttribute("n"));
+    assertEquals("monne", orth.getTextContent());
+
+    NodeList inflParList = form.getElementsByTagName("inflPar");
+    assertEquals(1, inflParList.getLength());
+
+    Element inflPar = (Element) inflParList.item(0);
+    NodeList inflSeqList = inflPar.getElementsByTagName("inflSeq");
+    assertEquals(2, inflSeqList.getLength());
+
+    Element inflSeq = (Element) inflSeqList.item(0);
+    assertTrue(inflSeq.hasAttributes());
+    assertEquals(1, inflSeq.getAttributes().getLength());
+    assertEquals("0-0", inflSeq.getAttribute("form"));
+    assertEquals("mon", inflSeq.getTextContent());
+    inflSeq = (Element) inflSeqList.item(1);
+    assertTrue(inflSeq.hasAttributes());
+    assertEquals(1, inflSeq.getAttributes().getLength());
+    assertEquals("0-1", inflSeq.getAttribute("form"));
+    assertEquals("monne", inflSeq.getTextContent());
 
   }
 

@@ -90,8 +90,10 @@ public final class InflectionServiceImpl implements InflectionService {
         String basePattern = patterns.get(basePatternKey);
         for (Entry<Integer, String> entry: patterns.entrySet()) {
           String pattern = patterns.get(entry.getKey());
-          String inflection = inflect(basePattern, pattern, lemma);
-          inflections.put(entry.getKey(), inflection);
+          if (!"-".equals(pattern)) {
+            String inflection = inflect(basePattern, pattern, lemma);
+            inflections.put(entry.getKey(), inflection);
+          }
         }
       }
     }
