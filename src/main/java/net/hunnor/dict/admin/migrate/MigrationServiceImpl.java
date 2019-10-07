@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 public class MigrationServiceImpl implements MigrationService {
@@ -64,7 +65,7 @@ public class MigrationServiceImpl implements MigrationService {
       List<String> paradigmeId = null;
 
       String parStr = rowSet.getString(3);
-      if (parStr != null) {
+      if (!StringUtils.isEmpty(parStr)) {
         paradigmeId = Arrays.stream(parStr.split(",")).collect(Collectors.toList());
       }
 
