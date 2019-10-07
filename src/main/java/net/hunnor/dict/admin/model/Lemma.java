@@ -1,7 +1,9 @@
 package net.hunnor.dict.admin.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import net.hunnor.dict.admin.config.Language;
 
@@ -17,6 +19,8 @@ public class Lemma {
 
   public static final int SOURCE_HUNNOR = 1;
 
+  private static final Map<String, String> normalizationMap = new HashMap<>();
+
   private int id;
 
   private String grunnform;
@@ -24,6 +28,16 @@ public class Lemma {
   private int weight;
 
   private List<String> paradigmeId;
+
+  static {
+    normalizationMap.put("Á", "A");
+    normalizationMap.put("É", "E");
+    normalizationMap.put("Í", "I");
+    normalizationMap.put("Ó", "O");
+    normalizationMap.put("Ő", "Ö");
+    normalizationMap.put("Ú", "U");
+    normalizationMap.put("Ű", "Ü");
+  }
 
   public Lemma() {
   }
@@ -153,33 +167,7 @@ public class Lemma {
   }
 
   private String normalizeHu(String letter) {
-    String normalizedLetter = letter;
-    switch (letter) {
-      case "Á":
-        normalizedLetter = "A";
-        break;
-      case "É":
-        normalizedLetter = "E";
-        break;
-      case "Í":
-        normalizedLetter = "I";
-        break;
-      case "Ó":
-        normalizedLetter = "O";
-        break;
-      case "Ő":
-        normalizedLetter = "Ö";
-        break;
-      case "Ú":
-        normalizedLetter = "U";
-        break;
-      case "Ű":
-        normalizedLetter = "Ü";
-        break;
-      default:
-        break;
-    }
-    return normalizedLetter;
+    return normalizationMap.getOrDefault(letter, letter);
   }
 
   private String normalizeNb(String letter) {
