@@ -128,11 +128,11 @@ public final class InflectionServiceImpl implements InflectionService {
 
       if (percentPos != -1) {
         percent = String.valueOf(term.charAt(term.length() - basePattern.length() + percentPos));
-        inflected = inflected.replaceAll("%", String.valueOf(percent));
+        inflected = inflected.replace("%", String.valueOf(percent));
       }
       if (plusPos != -1) {
         plus = String.valueOf(term.charAt(term.length() - basePattern.length() + plusPos));
-        inflected = inflected.replaceAll("\\+", String.valueOf(plus));
+        inflected = inflected.replace("+", String.valueOf(plus));
       }
 
       return inflected;
