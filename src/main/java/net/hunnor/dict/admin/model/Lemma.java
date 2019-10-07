@@ -21,6 +21,8 @@ public class Lemma {
 
   private static final Map<String, String> normalizationMap = new HashMap<>();
 
+  private static final Map<String, String[]> doubles = new HashMap<>();
+
   private int id;
 
   private String grunnform;
@@ -30,6 +32,7 @@ public class Lemma {
   private List<String> paradigmeId;
 
   static {
+
     normalizationMap.put("Á", "A");
     normalizationMap.put("É", "E");
     normalizationMap.put("Í", "I");
@@ -37,6 +40,16 @@ public class Lemma {
     normalizationMap.put("Ő", "Ö");
     normalizationMap.put("Ú", "U");
     normalizationMap.put("Ű", "Ü");
+
+    doubles.put("C", new String[] {"CS"});
+    doubles.put("D", new String[] {"DZS", "DZ"});
+    doubles.put("G", new String[] {"GY"});
+    doubles.put("L", new String[] {"LY"});
+    doubles.put("N", new String[] {"NY"});
+    doubles.put("T", new String[] {"TY"});
+    doubles.put("S", new String[] {"SZ"});
+    doubles.put("Z", new String[] {"ZS"});
+
   }
 
   public Lemma() {
@@ -107,38 +120,13 @@ public class Lemma {
 
   private String expandLetter(String firstLetter, String grunnform, int position) {
     String expandedLetter = firstLetter;
-    if (grunnform.length() > position + 1) {
-      if ("C".equals(firstLetter)) {
-        String secondLetter = grunnform.substring(position + 1, position + 2);
-        if ("S".equalsIgnoreCase(secondLetter)) {
-          expandedLetter = "CS";
-        }
-      } else if ("D".equals(firstLetter)) {
-        String secondLetter = grunnform.substring(position + 1, position + 2);
-        if ("Z".equalsIgnoreCase(secondLetter)) {
-          expandedLetter = "DZ";
-          if (grunnform.length() > position + 2) {
-            String thirdLetter = grunnform.substring(position + 2, position + 3);
-            if ("S".equalsIgnoreCase(thirdLetter)) {
-              expandedLetter = "DZS";
-            }
-          }
-        }
-      } else if ("G".equals(firstLetter) || "L".equals(firstLetter)
-          || "N".equals(firstLetter) || "T".equals(firstLetter)) {
-        String secondLetter = grunnform.substring(position + 1, position + 2);
-        if ("Y".equalsIgnoreCase(secondLetter)) {
-          expandedLetter = firstLetter + "Y";
-        }
-      } else if ("S".equals(firstLetter)) {
-        String secondLetter = grunnform.substring(position + 1, position + 2);
-        if ("Z".equalsIgnoreCase(secondLetter)) {
-          expandedLetter = "SZ";
-        }
-      } else if ("Z".equals(firstLetter)) {
-        String secondLetter = grunnform.substring(position + 1, position + 2);
-        if ("S".equalsIgnoreCase(secondLetter)) {
-          expandedLetter = "ZS";
+    if (doubles.containsKey(firstLetter)) {
+      String[] candidates = doubles.get(firstLetter);
+      for (String candidate : candidates) {
+        if (grunnform.length() >= position + candidate.length() && grunnform.substring(
+            position, position + candidate.length()).equalsIgnoreCase(candidate)) {
+          expandedLetter = candidate;
+          break;
         }
       }
     }

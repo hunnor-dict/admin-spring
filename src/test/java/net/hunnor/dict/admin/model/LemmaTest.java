@@ -130,6 +130,9 @@ public class LemmaTest {
     lemma.setGrunnform("dzxyz");
     assertEquals("DZ", lemma.getFirstLetter(Language.HU));
 
+    lemma.setGrunnform("dzs");
+    assertEquals("DZS", lemma.getFirstLetter(Language.HU));
+
     lemma.setGrunnform("dzsungel");
     assertEquals("DZS", lemma.getFirstLetter(Language.HU));
 
