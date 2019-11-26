@@ -118,6 +118,12 @@ public class Mappings {
     idMap.put(145110, 38875);
     idMap.put(145115, 156065);
     idMap.put(145350, 142110);
+    idMap.put(9229, 10320);
+    idMap.put(1338, 1443);
+    idMap.put(26531, 30159);
+    idMap.put(145137, 44033);
+    idMap.put(78074, 88195);
+    idMap.put(72606, 8204);
   }
 
   public static Integer getIdMapping(Integer id) {
