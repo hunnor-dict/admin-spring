@@ -103,7 +103,10 @@ public class MigrationServiceImpl implements MigrationService {
 
       int entryId = rowSet.getInt(1);
       String rawStatus = rowSet.getString(2);
-      String[] statusArray = rawStatus.split(",");
+      String[] statusArray = new String[] {};
+      if (rawStatus != null) {
+        statusArray = rawStatus.split(",");
+      }
       int status = Integer.parseInt(statusArray[0]);
       String pos = rowSet.getString(3);
 
@@ -152,7 +155,10 @@ public class MigrationServiceImpl implements MigrationService {
 
       int entryId = rowSet.getInt(1);
       String rawStatus = rowSet.getString(2);
-      String[] statusArray = rawStatus.split(",");
+      String[] statusArray = new String[] {};
+      if (rawStatus != null) {
+        statusArray = rawStatus.split(",");
+      }
       int status = Integer.parseInt(statusArray[0]);
       String pos = rowSet.getString(3);
 
@@ -224,7 +230,10 @@ public class MigrationServiceImpl implements MigrationService {
       }
 
       String grunnformColumn = rowSet.getString(3);
-      String[] grunnformArray = grunnformColumn.split(";");
+      String[] grunnformArray = new String[] {};
+      if (grunnformColumn != null) {
+        grunnformArray = grunnformColumn.split(";");
+      }
       String grunnform = grunnformArray[0];
 
       jdbcTemplate.update(lemmaSql, lemmaId, grunnform);
@@ -263,11 +272,18 @@ public class MigrationServiceImpl implements MigrationService {
       }
 
       String grunnformColumn = rowSet.getString(3);
-      String[] grunnformArray = grunnformColumn.split(",");
+      String[] grunnformArray = new String[] {};
+      if (grunnformColumn != null) {
+        grunnformArray = grunnformColumn.split(",");
+      }
       String grunnform = grunnformArray[0];
 
       String paradigmeIdColumn = rowSet.getString(5);
-      List<String> paradigmeId = Arrays.stream(paradigmeIdColumn.split(","))
+      String[] paradigmeIdArray = new String[] {};
+      if (paradigmeIdColumn != null) {
+        paradigmeIdArray = paradigmeIdColumn.split(",");
+      }
+      List<String> paradigmeId = Arrays.stream(paradigmeIdArray)
           .collect(Collectors.toList());
 
       Lemma lemma = new Lemma(lemmaId, grunnform, paradigmeId);
