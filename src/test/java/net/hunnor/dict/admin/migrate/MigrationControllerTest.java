@@ -1,7 +1,6 @@
 package net.hunnor.dict.admin.migrate;
 
 import static org.mockito.Mockito.doThrow;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -27,7 +26,7 @@ public class MigrationControllerTest {
   @Test
   @WithMockUser(value = "admin")
   public void testMigration() throws Exception {
-    mockMvc.perform(post("/migrate").with(csrf().asHeader()))
+    mockMvc.perform(post("/migrate"))
         .andExpect(status().isOk());
   }
 
@@ -35,7 +34,7 @@ public class MigrationControllerTest {
   @WithMockUser(value = "admin")
   public void testMigrationError() throws Exception {
     doThrow(MigrationException.class).when(migrationService).migrate();
-    mockMvc.perform(post("/migrate").with(csrf().asHeader()))
+    mockMvc.perform(post("/migrate"))
         .andExpect(status().is5xxServerError());
   }
 

@@ -19,6 +19,11 @@ public class EditControllerTest {
   private MockMvc mockMvc;
 
   @Test
+  public void testIndexProtected() throws Exception {
+    mockMvc.perform(get("/")).andExpect(status().isUnauthorized());
+  }
+
+  @Test
   @WithMockUser(value = "admin")
   public void testIndex() throws Exception {
     mockMvc.perform(get("/")).andExpect(status().isOk());
