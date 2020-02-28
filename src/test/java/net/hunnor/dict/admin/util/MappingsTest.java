@@ -3,7 +3,6 @@ package net.hunnor.dict.admin.util;
 import static org.junit.Assert.assertEquals;
 
 import net.hunnor.dict.admin.util.Mappings;
-
 import org.junit.Test;
 
 public class MappingsTest {

@@ -5,10 +5,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
-
 import net.hunnor.dict.admin.config.Language;
 import net.hunnor.dict.admin.model.Lemma;
-
 import org.junit.Test;
 
 public class LemmaTest {

@@ -5,9 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
-
 import net.hunnor.dict.admin.config.Language;
-
 import org.junit.Test;
 
 public class EntryTest {

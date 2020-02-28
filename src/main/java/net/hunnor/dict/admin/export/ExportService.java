@@ -1,7 +1,6 @@
 package net.hunnor.dict.admin.export;
 
 import java.io.OutputStream;
-
 import net.hunnor.dict.admin.config.Language;
 
 public interface ExportService {

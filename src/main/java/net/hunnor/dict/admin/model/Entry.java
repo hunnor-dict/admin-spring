@@ -2,7 +2,6 @@ package net.hunnor.dict.admin.model;
 
 import java.util.List;
 import java.util.Locale;
-
 import net.hunnor.dict.admin.config.Language;
 
 public class Entry {

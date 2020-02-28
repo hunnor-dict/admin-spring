@@ -11,12 +11,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import net.hunnor.dict.admin.config.Language;
 import net.hunnor.dict.admin.inflection.InflectionService;
 import net.hunnor.dict.admin.model.Entry;
 import net.hunnor.dict.admin.model.Lemma;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;

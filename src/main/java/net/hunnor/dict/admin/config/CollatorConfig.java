@@ -3,7 +3,6 @@ package net.hunnor.dict.admin.config;
 import java.text.Collator;
 import java.text.ParseException;
 import java.text.RuleBasedCollator;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

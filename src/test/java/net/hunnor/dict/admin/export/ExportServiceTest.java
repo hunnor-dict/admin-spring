@@ -14,9 +14,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-
 import net.hunnor.dict.admin.config.Language;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

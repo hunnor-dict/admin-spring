@@ -5,13 +5,10 @@ import static org.mockito.Mockito.doThrow;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
-
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
-
 import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.Serializer;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

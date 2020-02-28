@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import net.hunnor.dict.admin.model.Lemma;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
