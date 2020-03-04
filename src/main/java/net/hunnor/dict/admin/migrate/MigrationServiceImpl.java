@@ -87,7 +87,12 @@ public class MigrationServiceImpl implements MigrationService {
 
   private void loadEntries() {
 
-    // Hungarian
+    loadHuEntries();
+    loadNbEntries();
+
+  }
+
+  private void loadHuEntries() {
 
     Map<Integer, Entry> huEntries = new HashMap<>();
 
@@ -139,11 +144,13 @@ public class MigrationServiceImpl implements MigrationService {
           huSql, entry.getId(), entry.getStatus(), entry.getPos(), entry.getTranslation());
     });
 
-    // Norwegian
+  }
+
+  private void loadNbEntries() {
 
     Map<Integer, Entry> nbEntries = new HashMap<>();
 
-    rowSet = jdbcTemplate.queryForRowSet("SELECT entry,"
+    SqlRowSet rowSet = jdbcTemplate.queryForRowSet("SELECT entry,"
         + " GROUP_CONCAT(DISTINCT status) AS status,"
         + " GROUP_CONCAT(DISTINCT pos) AS pos FROM hn_nob_segment"
         + " WHERE status > 0 AND entry = id"
@@ -170,7 +177,7 @@ public class MigrationServiceImpl implements MigrationService {
 
     }
 
-    translationRowSet = jdbcTemplate.queryForRowSet(
+    SqlRowSet translationRowSet = jdbcTemplate.queryForRowSet(
         "SELECT id, trans FROM hn_nob_tr_hun_tmp");
 
     while (translationRowSet.next()) {
@@ -199,7 +206,12 @@ public class MigrationServiceImpl implements MigrationService {
 
   private void loadLemma() {
 
-    // Hungarian
+    loadHuLemma();
+    loadNbLemma();
+
+  }
+
+  private void loadHuLemma() {
 
     SqlRowSet rowSet = jdbcTemplate.queryForRowSet("SELECT id,"
         + " GROUP_CONCAT(DISTINCT entry) AS entry,"
@@ -239,9 +251,11 @@ public class MigrationServiceImpl implements MigrationService {
 
     }
 
-    // Norwegian
+  }
 
-    rowSet = jdbcTemplate.queryForRowSet("SELECT id,"
+  private void loadNbLemma() {
+
+    SqlRowSet rowSet = jdbcTemplate.queryForRowSet("SELECT id,"
         + " GROUP_CONCAT(DISTINCT entry) AS entry,"
         + " GROUP_CONCAT(orth ORDER BY par, seq) AS orth,"
         + " GROUP_CONCAT(DISTINCT pos ORDER BY pos) AS pos,"
@@ -251,11 +265,11 @@ public class MigrationServiceImpl implements MigrationService {
         + " WHERE status > 0"
         + " GROUP BY id");
 
-    lemmaSql = "INSERT INTO HN_NB_LEMMA"
+    String lemmaSql = "INSERT INTO HN_NB_LEMMA"
         + " (LEMMA_ID, GRUNNFORM) VALUES (?, ?)";
     String lemmaParadigmeSql = "INSERT INTO HN_NB_LEMMA_PARADIGME"
         + " (LEMMA_ID, PARADIGME_ID) VALUES (?, ?)";
-    entryLemmaSql = "INSERT INTO HN_NB_ENTRY_LEMMA"
+    String entryLemmaSql = "INSERT INTO HN_NB_ENTRY_LEMMA"
         + " (ENTRY_ID, LEMMA_ID, PARADIGME_ID, BOY_NUMMER, WEIGHT, SOURCE) VALUES"
         + " (?, ?, ?, ?, ?, ?)";
 
