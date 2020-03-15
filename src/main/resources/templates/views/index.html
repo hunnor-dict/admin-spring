@@ -5,12 +5,28 @@
 
 	<body>
 
-		<div class="container">
+		<div class="container-fluid" id="container">
+			<div class="no-gutters row">
 
-			<main>
-				<p>hunnor-admin-spring</p>
-			</main>
+				<div class="col-auto" id="list-container">
+					<div id="list-form">
+						<select id="list-lang-selector"> </select>
+						<select id="list-letter-selector"> </select>
+						<button id="list-submit" type="button" th:text="#{list.submit}"> </button>
+					</div>
+					<div id="list-results"> </div>
+				</div>
 
+				<div class="col" id="content">
+					<div id="user-info">
+						<p><a href="/logout">Logout</a></p>
+					</div>
+					<div id="entry-container">
+						<p>hunnor-admin-spring</p>
+					</div>
+				</div>
+
+			</div>
 		</div>
 
 		<div th:replace="layout/footer :: scripts"> </div>

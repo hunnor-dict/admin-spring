@@ -1,0 +1,71 @@
+#container {
+	padding: 0;
+}
+
+
+
+#list-container {
+	background-color: #f7f7f7;
+	height: 100vh;
+	overflow: scroll;
+	padding: .5rem;
+}
+
+#list-form {
+	margin-bottom: 1rem;
+}
+
+#list-results p {
+	margin-bottom: .5rem;
+}
+
+#list-lemma ol {
+	line-height: normal;
+}
+
+a.form {
+	font-weight: bold;
+}
+
+a.bob {
+	color: #808080;
+}
+
+a.stat0 {
+	color: red;
+}
+
+a.stat1 {
+	color: darkOrange;
+}
+
+a.stat2 {
+	color: green;
+}
+
+
+
+#content-container {
+	height: 100vh;
+	overflow: scroll;
+}
+
+#user-info {
+	background-color: #f7f7f7;
+	padding: .5rem;
+}
+
+#entry-container {
+	padding: .5rem;
+}
+
+
+
+a {
+	color: black;
+}
+
+p {
+	margin: 0;
+}
+
