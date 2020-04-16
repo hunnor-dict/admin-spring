@@ -72,7 +72,9 @@ public class EditServiceImpl implements EditService {
       String pos = results.getString("POS");
       entry.setPos(pos);
       String status = results.getString("STATUS");
-      entry.setStatus(Integer.parseInt(status));
+      if (status != null) {
+        entry.setStatus(Integer.parseInt(status));
+      }
       String translation = results.getString("TRANSLATION");
       entry.setTranslation(translation);
     }
