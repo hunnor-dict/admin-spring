@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import net.hunnor.dict.admin.config.Language;
+import net.hunnor.dict.admin.model.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -52,6 +53,31 @@ public class EditServiceImpl implements EditService {
     }
 
     return elements;
+
+  }
+
+  @Override
+  public Entry entry(Language language, int id) {
+
+    Entry entry = new Entry();
+
+    String snippet = SqlSnippets.ENTRY_HU;
+    if (Language.NB.equals(language)) {
+      snippet = SqlSnippets.ENTRY_NB;
+    }
+
+    SqlRowSet results = jdbcTemplate.queryForRowSet(snippet, id);
+
+    while (results.next()) {
+      String pos = results.getString("POS");
+      entry.setPos(pos);
+      String status = results.getString("STATUS");
+      entry.setStatus(Integer.parseInt(status));
+      String translation = results.getString("TRANSLATION");
+      entry.setTranslation(translation);
+    }
+
+    return entry;
 
   }
 

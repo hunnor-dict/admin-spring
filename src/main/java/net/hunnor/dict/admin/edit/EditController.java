@@ -3,6 +3,7 @@ package net.hunnor.dict.admin.edit;
 import java.util.List;
 import java.util.Map;
 import net.hunnor.dict.admin.config.Language;
+import net.hunnor.dict.admin.model.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,20 @@ public class EditController {
       @RequestParam(name = "lang") Language language,
       @RequestParam(name = "letter") String letter) {
     return editService.list(language, letter);
+  }
+
+  /**
+   * Details of a single lemma.
+   * @param language the language
+   * @param id the entry ID
+   * @return the matching entry
+   */
+  @GetMapping(value = "/entry", produces = {"application/json"})
+  @ResponseBody
+  public Entry entry(
+      @RequestParam(name = "lang") Language language,
+      @RequestParam(name = "id") int id) {
+    return editService.entry(language, id);
   }
 
 }

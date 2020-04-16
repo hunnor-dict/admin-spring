@@ -123,6 +123,10 @@ function Navigation() {
 		var lang = $("#list-lang-selector").val();
 		var letter = $("#list-letter-selector").val();
 
+		var container = $("#list-results");
+		container.empty();
+		container.append($("<p>").text("Lista betöltése (" + lang + "/" + letter + ")"));
+
 		var url = "/list?lang=" + lang.toUpperCase() + "&letter=" + letter;
 
 		$.get(url, function(data) {
@@ -134,7 +138,12 @@ function Navigation() {
 			});
 			container.append($("<p>").append($("<strong>").text(data.length)).append(" szócikk:"));
 			container.append(list);
+		}).fail(function() {
+			var container = $("#list-results");
+			container.empty();
+			container.append($("<p>").text("Hiba"));
 		});
+
 	};
 
 	this.loadListItem = function(list, element, lang) {
@@ -177,20 +186,51 @@ function Navigation() {
 	};
 
 	this.loadForm = function(lang, id) {
-		$("#entry-container").append($("<p>").text(lang + ":" + id));
+
 		event.preventDefault();
-	}
+
+		var url = "/entry?lang=" + lang.toUpperCase() + "&id=" + id;
+
+		$.get(url, function(data) {
+			editor.loadContent(data.translation);
+		}).fail(function() {
+			console.log("Error loading entry");
+		});
+
+	};
 
 }
 
-$(document).ready(function() {
+function Editor() {
 
-	var navigation = new Navigation();
+	this.loadEditor = function() {
+		var textArea = document.getElementById("entry-translation");
+		this.cmEditor = CodeMirror.fromTextArea(textArea, {
+			lineNumbers: true,
+			mode: "xml",
+			autoCloseTags: true
+		});
+	};
+
+	this.loadContent = function(content) {
+		this.cmEditor.getDoc().setValue(content);
+	};
+
+}
+
+var navigation = new Navigation();
+
+var editor = new Editor();
+
+$(document).ready(function() {
 
 	navigation.loadLangs();
 	navigation.loadLetters();
+	navigation.loadList();
 
 	navigation.bindLangChange();
 	navigation.bindListByLetter();
+
+	editor.loadEditor();
 
 });

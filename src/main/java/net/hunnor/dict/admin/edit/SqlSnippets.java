@@ -6,6 +6,12 @@ import net.hunnor.dict.admin.config.Language;
 
 public class SqlSnippets {
 
+  public static final String ENTRY_HU = "SELECT POS, STATUS, TRANSLATION "
+      + "FROM HN_HU_ENTRY WHERE ENTRY_ID = ?";
+
+  public static final String ENTRY_NB = "SELECT POS, STATUS, TRANSLATION "
+      + "FROM HN_NB_ENTRY WHERE ENTRY_ID = ?";
+
   public static final String LIST_HU_LEMMA = ""
 
       + "SELECT "
