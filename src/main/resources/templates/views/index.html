@@ -23,7 +23,21 @@
 					</div>
 					<div id="entry-container">
 						<p>hunnor-admin-spring</p>
-						<textarea id="entry-translation"> </textarea>
+						<form>
+							<p>
+								<label for="entry-id">ID: </label>
+								<input id="entry-id" disabled="disabled"/>
+							</p>
+							<p>
+								<label for="entry-status">Status: </label>
+								<select id="entry-status" name="entry-status">
+									<option value="0">0</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+								</select>
+							</p>
+							<textarea id="entry-translation" name="entry-translation"> </textarea>
+						</form>
 					</div>
 				</div>
 

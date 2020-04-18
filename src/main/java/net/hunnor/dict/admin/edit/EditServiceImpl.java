@@ -60,6 +60,7 @@ public class EditServiceImpl implements EditService {
   public Entry entry(Language language, int id) {
 
     Entry entry = new Entry();
+    entry.setId(id);
 
     String snippet = SqlSnippets.ENTRY_HU;
     if (Language.NB.equals(language)) {

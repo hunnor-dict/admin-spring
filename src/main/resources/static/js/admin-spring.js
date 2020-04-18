@@ -191,8 +191,10 @@ function Navigation() {
 
 		var url = "/entry?lang=" + lang.toUpperCase() + "&id=" + id;
 
-		$.get(url, function(data) {
-			editor.loadContent(data.translation);
+		$.get(url, function(entry) {
+			editor.loadContent(entry.translation);
+			$("#entry-id").val(entry.id);
+			$("#entry-status").val(entry.status);
 		}).fail(function() {
 			console.log("Error loading entry");
 		});
