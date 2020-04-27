@@ -29,7 +29,7 @@
 		<jquery.version>3.4.1</jquery.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<saxon.version>9.9.1-7</saxon.version>
+		<saxon.version>10.0</saxon.version>
 		<spotbugs.version>4.0.0</spotbugs.version>
 	</properties>
 
