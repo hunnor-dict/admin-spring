@@ -26,7 +26,7 @@
 		<codemirror.version>5.50.0</codemirror.version>
 		<jacoco.version>0.8.5</jacoco.version>
 		<java.version>13</java.version>
-		<jquery.version>3.4.1</jquery.version>
+		<jquery.version>3.5.1</jquery.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<saxon.version>10.0</saxon.version>
