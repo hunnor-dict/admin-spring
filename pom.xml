@@ -21,7 +21,7 @@
 	</parent>
 
 	<properties>
-		<bootstrap.version>4.4.1-1</bootstrap.version>
+		<bootstrap.version>4.5.0</bootstrap.version>
 		<checkstyle.version>3.1.1</checkstyle.version>
 		<codemirror.version>5.50.0</codemirror.version>
 		<jacoco.version>0.8.5</jacoco.version>
@@ -75,17 +75,6 @@
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap</artifactId>
 			<version>${bootstrap.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.webjars</groupId>
-					<artifactId>jquery</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>jquery</artifactId>
-			<version>${jquery.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
