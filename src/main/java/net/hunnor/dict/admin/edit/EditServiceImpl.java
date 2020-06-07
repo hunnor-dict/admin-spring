@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import net.hunnor.dict.admin.config.Language;
 import net.hunnor.dict.admin.model.Entry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EditServiceImpl implements EditService {
+
+  private static final Logger logger = LoggerFactory.getLogger(EditServiceImpl.class);
 
   @Autowired
   private JdbcTemplate jdbcTemplate;
@@ -82,6 +86,12 @@ public class EditServiceImpl implements EditService {
 
     return entry;
 
+  }
+
+  @Override
+  public void save(Entry entry) {
+    logger.info("Saving...");
+    logger.info("-> Status: {}", entry.getStatus());
   }
 
 }

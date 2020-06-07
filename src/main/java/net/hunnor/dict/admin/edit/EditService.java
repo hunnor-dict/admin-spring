@@ -11,4 +11,6 @@ public interface EditService {
 
   public Entry entry(Language language, int id);
 
+  public void save(Entry entry);
+
 }

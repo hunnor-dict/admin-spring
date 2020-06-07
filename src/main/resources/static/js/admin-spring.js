@@ -205,6 +205,36 @@ function Navigation() {
 
 function Editor() {
 
+	this.bindForm = function() {
+		var _this = this;
+		$("#entry-save").click(function() {
+			_this.saveEntry();
+		});
+	}
+
+	this.saveEntry = function() {
+
+		var url = "/save";
+		var data = {};
+
+		var status = $("#entry-status").val();
+		data.status = status;
+
+		$.ajax({
+			type: "POST",
+			url: url,
+			data: JSON.stringify(data),
+			contentType: "application/json; charset=utf-8",
+			success: function() {
+				console.log("Entry saved");
+			},
+			failure: function() {
+				console.log("Error saving entry");
+			}
+		});
+
+	};
+
 	this.loadEditor = function() {
 		var textArea = document.getElementById("entry-translation");
 		this.cmEditor = CodeMirror.fromTextArea(textArea, {
@@ -232,6 +262,8 @@ $(document).ready(function() {
 
 	navigation.bindLangChange();
 	navigation.bindListByLetter();
+
+	editor.bindForm();
 
 	editor.loadEditor();
 
