@@ -21,7 +21,7 @@
 	</parent>
 
 	<properties>
-		<bootstrap.version>4.5.0</bootstrap.version>
+		<bootstrap.version>4.5.2</bootstrap.version>
 		<checkstyle.version>3.1.1</checkstyle.version>
 		<codemirror.version>5.50.0</codemirror.version>
 		<jacoco.version>0.8.5</jacoco.version>
