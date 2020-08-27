@@ -30,7 +30,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<saxon.version>10.1</saxon.version>
-		<spotbugs.version>4.0.0</spotbugs.version>
+		<spotbugs.version>4.0.4</spotbugs.version>
 	</properties>
 
 	<dependencies>
