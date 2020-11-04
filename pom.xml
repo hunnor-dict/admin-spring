@@ -23,7 +23,7 @@
 	<properties>
 		<bootstrap.version>4.5.2</bootstrap.version>
 		<checkstyle.version>3.1.1</checkstyle.version>
-		<codemirror.version>5.50.0</codemirror.version>
+		<codemirror.version>5.58.2</codemirror.version>
 		<jacoco.version>0.8.5</jacoco.version>
 		<java.version>13</java.version>
 		<jquery.version>3.5.1</jquery.version>
@@ -77,7 +77,7 @@
 			<version>${bootstrap.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.webjars</groupId>
+			<groupId>org.webjars.npm</groupId>
 			<artifactId>codemirror</artifactId>
 			<version>${codemirror.version}</version>
 		</dependency>
