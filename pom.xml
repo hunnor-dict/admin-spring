@@ -24,13 +24,13 @@
 		<bootstrap.version>4.5.2</bootstrap.version>
 		<checkstyle.version>3.1.1</checkstyle.version>
 		<codemirror.version>5.58.2</codemirror.version>
-		<jacoco.version>0.8.5</jacoco.version>
+		<jacoco.version>0.8.6</jacoco.version>
 		<java.version>11</java.version>
 		<jquery.version>3.5.1</jquery.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<saxon.version>10.3</saxon.version>
-		<spotbugs.version>4.0.4</spotbugs.version>
+		<spotbugs.version>4.1.4</spotbugs.version>
 	</properties>
 
 	<dependencies>
