@@ -127,6 +127,7 @@
       <xs:enumeration value="konj" />
       <xs:enumeration value="prep" />
       <xs:enumeration value="pron" />
+      <xs:enumeration value="subj" />
       <xs:enumeration value="subst" />
       <xs:enumeration value="tall" />
       <xs:enumeration value="verb" />
@@ -142,4 +143,3 @@
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>
-
