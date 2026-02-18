@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+
+	<body>
+		<form id="priv-edit-form">
+			<p>
+				<input id="entrylang" name="entrylang" type="hidden" th:value="${entry.lang}" />
+				ID: <strong th:text="${entry.id}">N</strong><input id="id" name="id" type="hidden" th:value="${entry.id}" />
+				Csoport: <input id="entry" name="entry" type="text" th:value="${entry.entry}" />
+				Szófaj:
+				<select id="pos" name="pos">
+					<option th:each="opt : ${posOptions}" th:value="${opt.key}" th:selected="${opt.key == entry.pos}" th:text="${opt.value}">pos</option>
+				</select>
+				Státusz:
+				<select id="status" name="status">
+					<option value="0" th:selected="${entry.status == 0}">0</option>
+					<option value="1" th:selected="${entry.status == 1}">1</option>
+					<option value="2" th:selected="${entry.status == 2}">2</option>
+				</select>
+				<input id="entry-submit" type="button" value="Mentés" onclick="saveEntry();" />
+				<input id="entry-delete" type="button" value="Törlés" onclick="deleteEntry();" style="color: red; float: right;" />
+			</p>
+			<div id="priv-edit-form-forms">
+				<p style="margin-bottom: 0;"><strong>Formák:</strong></p>
+				<textarea id="forms" name="forms" th:text="${formsYaml}">---</textarea>
+			</div>
+			<div id="priv-edit-form-senses">
+				<p>Beszúrás:
+					<input type="button" value="senseGrp" onclick="insertTag('senseGrp');" />
+					<input type="button" value="sense" onclick="insertTag('sense');" />
+					<input type="button" value="trans" onclick="insertTag('trans');" />
+					<input type="button" value="lbl" onclick="insertTag('lbl');" />
+					<input type="button" value="eg" onclick="insertTag('eg');" />
+				</p>
+				<p style="margin-bottom: 0;"><strong>Jelentések:</strong></p>
+				<textarea id="trans" name="trans" th:text="${entry.trans}"> </textarea>
+			</div>
+		</form>
+	</body>
+
+</html>

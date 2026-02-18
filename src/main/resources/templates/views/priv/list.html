@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+
+	<body>
+		<div th:if="${#lists.isEmpty(entries)}">
+			<p>Nincs találat.</p>
+		</div>
+		<div th:unless="${#lists.isEmpty(entries)}">
+			<p><strong th:text="${#lists.size(entries)}">0</strong> szócikk:</p>
+			<ol>
+				<li th:each="entry : ${entries}">
+					<span th:if="${lang == 'nb'}">
+						<a class="ref" target="_blank" th:href="${entry.bobLink}">[B]</a>
+					</span>
+					<a
+						th:class="|entry-link stat${entry.status}|"
+						th:attr="data-entry-lang=${entry.lang},data-entry-id=${entry.id}"
+						href="#"
+						>
+						<strong th:text="${entry.form}">form</strong>
+					</a>
+					<span th:text="${entry.pos}">pos</span>
+					<span th:if="${lang == 'nb'}" th:text="${entry.formsKeysJoined}">0</span>
+					<span th:if="${lang == 'nb' and entry.formsKeysJoined == '0'}"> [!]</span>
+				</li>
+			</ol>
+		</div>
+		<script type="text/javascript">
+			$("#priv-list-results").off("click", "a.entry-link").on("click", "a.entry-link", function(event) {
+				event.preventDefault();
+				var lang = $(this).data("entry-lang");
+				var id = $(this).data("entry-id");
+				loadEntry(String(lang), String(id), "");
+			});
+		</script>
+	</body>
+
+</html>

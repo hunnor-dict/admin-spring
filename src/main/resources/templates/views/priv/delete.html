@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+
+	<body>
+		<div th:if="${result.deleted}">
+			<p><span th:text="${result.clock + ':'}">00:00:00:</span>
+				<span style="font-weight: bold; color: green;">Sikeres törlés.</span>
+				<span>&raquo; <a href="#" id="ToggleSQL">Mutasd az SQL lekérdezéseket</a></span>
+			</p>
+			<div id="OutputSQL" style="display: none; font-family: monospace; font-size: 75%;">
+				<ul>
+					<li th:each="sql : ${result.sql}" th:text="${sql}">SQL</li>
+				</ul>
+			</div>
+			<script type="text/javascript">
+				$("#ToggleSQL").click(function() {
+					$("#OutputSQL").toggle();
+					return false;
+				});
+			</script>
+		</div>
+		<div th:unless="${result.deleted}">
+			<p><span th:text="${result.clock + ':'}">00:00:00:</span>
+				<span style="font-weight: bold; color: red;">Hiba történt a törlés során: <span th:text="${result.error}">error</span><br /></span>
+			</p>
+		</div>
+	</body>
+
+</html>

@@ -1,270 +1,171 @@
-var langs = {
-		"hu": "magyar",
-		"nb": "bokmål"
-};
+var formEditor;
+var transEditor;
 
-var letters = {
-		"hu": {
-			"a": "A-Á",
-			"b": "B",
-			"c": "C",
-			"cs": "CS",
-			"d": "D",
-			"dz": "DZ",
-			"dzs": "DZS",
-			"e": "E-É",
-			"f": "F",
-			"g": "G",
-			"h": "J",
-			"i": "I-Í",
-			"j": "J",
-			"k": "K",
-			"l": "L",
-			"ly": "LY",
-			"m": "M",
-			"n": "N",
-			"ny": "NY",
-			"o": "O-Ó",
-			"ö": "Ö-Ő",
-			"p": "P",
-			"q": "Q",
-			"r": "R",
-			"s": "S",
-			"sz": "SZ",
-			"t": "T",
-			"ty": "TY",
-			"u": "U-Ú",
-			"ü": "Ü-Ű",
-			"v": "V",
-			"w": "W",
-			"x": "X",
-			"y": "Y",
-			"z": "Z",
-			"zs": "ZS",
-		},
-		"nb": {
-			"a": "A",
-			"b": "B",
-			"c": "C",
-			"d": "D",
-			"e": "E",
-			"f": "F",
-			"g": "G",
-			"h": "H",
-			"i": "I",
-			"j": "J",
-			"k": "K",
-			"l": "L",
-			"m": "M",
-			"n": "N",
-			"o": "O",
-			"p": "P",
-			"q": "Q",
-			"r": "R",
-			"s": "S",
-			"t": "T",
-			"u": "U",
-			"v": "V",
-			"w": "W",
-			"x": "X",
-			"y": "Y",
-			"z": "Z",
-			"æ": "Æ",
-			"ø": "Ø",
-			"å": "Å",
-		}
-};
-
-function Navigation() {
-
-	this.loadLangs = function() {
-
-		var langSelector = $("#list-lang-selector");
-		langSelector.empty();
-
-		$.each(langs, function(value, label) {
-			langSelector.append($("<option>").attr("value", value).text(label));
-		});
-
-	};
-
-	this.loadLetters = function() {
-
-		var langSelector = $("#list-lang-selector");
-		var langSelection = langSelector.val();
-
-		var letterSelector = $("#list-letter-selector");
-		letterSelector.empty();
-
-		$.each(letters[langSelection], function(value, label) {
-			letterSelector.append($("<option>").attr("value", value).text(label));
-		});
-
-	};
-
-	this.bindLangChange = function() {
-		var _this = this;
-		$("#list-lang-selector").change(function() {
-			_this.loadLetters();
-		});
-	};
-
-	this.bindListByLetter = function() {
-		var _this = this;
-		$("#list-submit").click(function() {
-			_this.loadList();
-		});
-	};
-
-	this.loadList = function() {
-
-		var _this = this;
-
-		var lang = $("#list-lang-selector").val();
-		var letter = $("#list-letter-selector").val();
-
-		var container = $("#list-results");
-		container.empty();
-		container.append($("<p>").text("Lista betöltése (" + lang + "/" + letter + ")"));
-
-		var url = "/list?lang=" + lang.toUpperCase() + "&letter=" + letter;
-
-		$.get(url, function(data) {
-			var container = $("#list-results");
-			container.empty();
-			var list = $("<ol>");
-			data.forEach(function(element, index) {
-				_this.loadListItem(list, element, lang);
-			});
-			container.append($("<p>").append($("<strong>").text(data.length)).append(" szócikk:"));
-			container.append(list);
-		}).fail(function() {
-			var container = $("#list-results");
-			container.empty();
-			container.append($("<p>").text("Hiba"));
-		});
-
-	};
-
-	this.loadListItem = function(list, element, lang) {
-
-		var _this = this;
-
-		var li = $("<li>");
-
-		if (lang == "nb") {
-			var bob = $("<a>")
-					.text("[B]")
-					.attr("target", "_bob")
-					.addClass("bob")
-					.attr("href", "https://ordbok.uib.no/perl/ordbok.cgi?OPP=" + element.grunnform + "&bokmaal=+&ordbok=begge");
-			li.append(bob);
-			li.append(" ");
-		}
-
-		var entry = $("<a>")
-				.text(element.grunnform)
-				.addClass("form")
-				.addClass("stat" + element.status)
-				.attr("href", "#")
-				.attr("data-entry-id", element.entryId);
-		li.append(entry);
-		li.append(" ");
-
-		entry.click(function(event) {
-			_this.loadForm(lang, element.entryId);
-		});
-
-		if (lang == "nb") {
-			var paradigmer = $("<small>")
-					.text(element.paradigmer);
-			li.append(paradigmer);
-		}
-
-		list.append(li);
-
-	};
-
-	this.loadForm = function(lang, id) {
-
-		event.preventDefault();
-
-		var url = "/entry?lang=" + lang.toUpperCase() + "&id=" + id;
-
-		$.get(url, function(entry) {
-			editor.loadContent(entry.translation);
-			$("#entry-id").val(entry.id);
-			$("#entry-status").val(entry.status);
-		}).fail(function() {
-			console.log("Error loading entry");
-		});
-
-	};
-
+function loadLetters(lang) {
+	var letters;
+	if (lang === "nb") {
+		letters = {"a": "A", "b": "B", "c": "C", "d": "D", "e": "E", "f": "F", "g": "G", "h": "H", "i": "I", "j": "J", "k": "K", "l": "L", "m": "M", "n": "N", "o": "O", "p": "P", "q": "Q", "r": "R", "s": "S", "t": "T", "u": "U", "v": "V", "w": "W", "x": "X", "y": "Y", "z": "Z", "ae": "Æ", "oe": "Ø", "aa": "Å"};
+	} else {
+		letters = {"a": "A-Á", "b": "B", "c": "C", "cs": "CS", "d": "D", "dz": "DZ", "dzs": "DZS", "e": "E-É", "f": "F", "g": "G", "gy": "GY", "h": "H", "i": "I-Í", "j": "J", "k": "K", "l": "L", "ly": "LY", "m": "M", "n": "N", "ny": "NY", "o": "O-Ó", "oe": "Ö-Ő", "p": "P", "q": "Q", "r": "R", "s": "S", "sz": "SZ", "t": "T", "ty": "TY", "u": "U-Ú", "ue": "Ü-Ű", "v": "V", "w": "W", "x": "X", "y": "Y", "z": "Z", "zs": "ZS"};
+	}
+	$("#letter option").each(function(index, option) {
+		$(option).remove();
+	});
+	$.each(letters, function(key, value) {
+		$("#letter").append($("<option>", { value: key }).text(value));
+	});
 }
 
-function Editor() {
+function listLetter(lang, letter, term) {
+	var listUrl = "/priv/list?lang=" + lang;
+	if (term === "") {
+		listUrl += "&letter=" + letter;
+	} else {
+		listUrl += "&term=" + encodeURIComponent(term);
+	}
+	if ($("#stat").is(":checked")) {
+		listUrl += "&stat=1";
+	}
+	$("#priv-list-results").html("Várj...");
+	$.ajax({
+		url: listUrl,
+		success: function(result) {
+			$("#priv-list-results").html(result);
+		},
+		error: function() {
+			$("#priv-list-results").html("Hiba.");
+		}
+	});
+}
 
-	this.bindForm = function() {
-		var _this = this;
-		$("#entry-save").click(function() {
-			_this.saveEntry();
+function loadEntry(lang, id, term) {
+	var entryUrl = "/priv/edit?lang=" + lang + "&id=" + id;
+	if (id === "N" && term !== "") {
+		entryUrl += "&term=" + encodeURIComponent(term);
+	}
+	$.ajax({
+		url: entryUrl,
+		success: function(result) {
+			$("#priv-edit-form-container").html(result);
+			initForm();
+			initTrans();
+		},
+		error: function() {
+			$("#priv-edit").html("Hiba.");
+		}
+	});
+}
+
+function adjustHeight() {
+	if (!formEditor) {
+		return;
+	}
+	if ($(window).height() < 850) {
+		formEditor.setSize(null, 120);
+	} else {
+		formEditor.setSize(null, 300);
+	}
+}
+
+function initForm() {
+	if (formEditor) {
+		formEditor.toTextArea();
+	}
+	formEditor = CodeMirror.fromTextArea(document.getElementById("forms"), {
+		mode: "application/xml",
+		lineNumbers: true,
+		lineWrapping: true,
+		autoCloseTags: true
+	});
+	var activeLine = formEditor.getCursor().line;
+	formEditor.addLineClass(activeLine, "background", "activeline");
+	formEditor.on("cursorActivity", function(cm) {
+		cm.removeLineClass(activeLine, "background", "activeline");
+		activeLine = cm.getCursor().line;
+		cm.addLineClass(activeLine, "background", "activeline");
+	});
+	adjustHeight();
+}
+
+function initTrans() {
+	if (transEditor) {
+		transEditor.toTextArea();
+	}
+	transEditor = CodeMirror.fromTextArea(document.getElementById("trans"), {
+		mode: "application/xml",
+		lineNumbers: true,
+		lineWrapping: true,
+		autoCloseTags: true
+	});
+	var activeLine = transEditor.getCursor().line;
+	transEditor.addLineClass(activeLine, "background", "activeline");
+	transEditor.on("cursorActivity", function(cm) {
+		cm.removeLineClass(activeLine, "background", "activeline");
+		activeLine = cm.getCursor().line;
+		cm.addLineClass(activeLine, "background", "activeline");
+	});
+}
+
+function insertTag(tag) {
+	var insertString = "";
+	if (tag === "senseGrp") {
+		insertString = "<senseGrp>\n  <sense>\n    <trans></trans>\n  </sense>\n</senseGrp>\n";
+	}
+	if (tag === "sense") {
+		insertString = "  <sense>\n    <trans></trans>\n  </sense>\n";
+	}
+	if (tag === "trans") {
+		insertString = "    <trans></trans>\n";
+	}
+	if (tag === "lbl") {
+		insertString = "    <lbl></lbl>\n";
+	}
+	if (tag === "eg") {
+		insertString = "    <eg>\n      <q></q>\n      <trans></trans>\n    </eg>\n";
+	}
+	transEditor.replaceRange(insertString, {line: transEditor.getCursor().line, ch: 0});
+}
+
+function saveEntry() {
+	$("#entry-submit").attr("disabled", true);
+	var entryUrl = "/priv/save";
+	var entryId = $("#id").val();
+	var entryLang = $("#entrylang").val();
+	$.post(entryUrl, {
+		entrylang: $("#entrylang").val(),
+		id: $("#id").val(),
+		entry: $("#entry").val(),
+		pos: $("#pos").val(),
+		forms: formEditor.getValue(),
+		trans: transEditor.getValue(),
+		status: $("#status").val()
+	}, function(data) {
+		$("#priv-edit-results").html(data);
+		if (entryId === "N") {
+			var newId = $("#addition").val();
+			if (newId !== "" && newId !== null && newId !== undefined) {
+				loadEntry(entryLang, newId, "");
+			}
+		}
+	}).fail(function() {
+		$("#priv-edit-results").html("Hiba.");
+	}).always(function() {
+		$("#entry-submit").removeAttr("disabled");
+	});
+}
+
+function deleteEntry() {
+	if (confirm("Biztos?")) {
+		var entryUrl = "/priv/delete";
+		$.post(entryUrl, {
+			entrylang: $("#entrylang").val(),
+			id: $("#id").val(),
+			entry: $("#entry").val()
+		}, function(data) {
+			$("#priv-edit-results").html(data);
+			loadEntry($("#entrylang").val(), "N", "");
+		}).fail(function() {
+			$("#priv-edit-results").html("Hiba.");
 		});
 	}
-
-	this.saveEntry = function() {
-
-		var url = "/save";
-		var data = {};
-
-		var status = $("#entry-status").val();
-		data.status = status;
-
-		$.ajax({
-			type: "POST",
-			url: url,
-			data: JSON.stringify(data),
-			contentType: "application/json; charset=utf-8",
-			success: function() {
-				console.log("Entry saved");
-			},
-			failure: function() {
-				console.log("Error saving entry");
-			}
-		});
-
-	};
-
-	this.loadEditor = function() {
-		var textArea = document.getElementById("entry-translation");
-		this.cmEditor = CodeMirror.fromTextArea(textArea, {
-			lineNumbers: true,
-			mode: "xml",
-			autoCloseTags: true
-		});
-	};
-
-	this.loadContent = function(content) {
-		this.cmEditor.getDoc().setValue(content);
-	};
-
 }
-
-var navigation = new Navigation();
-
-var editor = new Editor();
-
-$(document).ready(function() {
-
-	navigation.loadLangs();
-	navigation.loadLetters();
-	navigation.loadList();
-
-	navigation.bindLangChange();
-	navigation.bindListByLetter();
-
-	editor.bindForm();
-
-	editor.loadEditor();
-
-});
