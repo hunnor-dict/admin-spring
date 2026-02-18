@@ -1,9 +1,9 @@
-FROM maven:3.6-jdk-11 as maven
+FROM maven:3.9-eclipse-temurin-17 as maven
 COPY . /opt/hunnor-dict/admin-spring
 WORKDIR /opt/hunnor-dict/admin-spring
 RUN mvn verify
 
-FROM openjdk:11-jdk
+FROM eclipse-temurin:17
 RUN groupadd --system hunnor && \
 	useradd --system --gid hunnor hunnor && \
 	mkdir /hunnor && \
