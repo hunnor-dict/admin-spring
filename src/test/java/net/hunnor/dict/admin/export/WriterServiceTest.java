@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -62,7 +63,7 @@ public class WriterServiceTest {
 
     doThrow(XMLStreamException.class).when(mockWriter)
         .writeStartDocument(ArgumentMatchers.anyString(), ArgumentMatchers.anyString());
-    writerService.setWriter(mockWriter);
+    ReflectionTestUtils.setField(writerService, "writer", mockWriter);
 
     writerService.writeStartDocument("UTF-8", "1.0");
 
@@ -75,7 +76,7 @@ public class WriterServiceTest {
 
     doThrow(XMLStreamException.class).when(mockWriter)
         .writeEndDocument();
-    writerService.setWriter(mockWriter);
+    ReflectionTestUtils.setField(writerService, "writer", mockWriter);
 
     writerService.writeStartDocument("UTF-8", "1.0");
     writerService.writeEndDocument();
@@ -89,7 +90,7 @@ public class WriterServiceTest {
 
     doThrow(XMLStreamException.class).when(mockWriter)
         .writeStartElement(ArgumentMatchers.anyString(), ArgumentMatchers.anyString());
-    writerService.setWriter(mockWriter);
+    ReflectionTestUtils.setField(writerService, "writer", mockWriter);
 
     writerService.writeStartDocument("UTF-8", "1.0");
     writerService.writeStartElement("root");
@@ -103,7 +104,7 @@ public class WriterServiceTest {
 
     doThrow(XMLStreamException.class).when(mockWriter)
         .writeEndElement();
-    writerService.setWriter(mockWriter);
+    ReflectionTestUtils.setField(writerService, "writer", mockWriter);
 
     writerService.writeStartDocument("UTF-8", "1.0");
     writerService.writeStartElement("root");
@@ -118,7 +119,7 @@ public class WriterServiceTest {
 
     doThrow(XMLStreamException.class).when(mockWriter)
         .writeAttribute(ArgumentMatchers.anyString(), ArgumentMatchers.anyString());
-    writerService.setWriter(mockWriter);
+    ReflectionTestUtils.setField(writerService, "writer", mockWriter);
 
     writerService.writeStartDocument("UTF-8", "1.0");
     writerService.writeStartElement("root");
@@ -133,7 +134,7 @@ public class WriterServiceTest {
 
     doThrow(XMLStreamException.class).when(mockWriter)
         .writeCharacters(ArgumentMatchers.anyString());
-    writerService.setWriter(mockWriter);
+    ReflectionTestUtils.setField(writerService, "writer", mockWriter);
 
     writerService.writeStartDocument("UTF-8", "1.0");
     writerService.writeStartElement("root");
@@ -148,7 +149,7 @@ public class WriterServiceTest {
 
     doThrow(XMLStreamException.class).when(mockWriter)
         .flush();
-    writerService.setWriter(mockWriter);
+    ReflectionTestUtils.setField(writerService, "writer", mockWriter);
 
     writerService.writeStartDocument("UTF-8", "1.0");
     writerService.writeEndDocument();
@@ -164,7 +165,7 @@ public class WriterServiceTest {
 
     doThrow(XMLStreamException.class).when(mockWriter)
         .close();
-    writerService.setWriter(mockWriter);
+    ReflectionTestUtils.setField(writerService, "writer", mockWriter);
 
     writerService.writeStartDocument("UTF-8", "1.0");
     writerService.writeEndDocument();

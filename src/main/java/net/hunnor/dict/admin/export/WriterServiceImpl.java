@@ -20,10 +20,6 @@ public class WriterServiceImpl implements WriterService {
 
   private XMLStreamWriter writer = null;
 
-  public void setWriter(XMLStreamWriter writer) {
-    this.writer = writer;
-  }
-
   /**
    * Create the XML writer.
    */

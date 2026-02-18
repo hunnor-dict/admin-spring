@@ -3,8 +3,10 @@ package net.hunnor.dict.admin.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
+import java.util.List;
 import net.hunnor.dict.admin.config.Language;
 import org.junit.Test;
 
@@ -54,6 +56,29 @@ public class LemmaTest {
     lemma.setParadigmeId(new ArrayList<>());
     assertNotNull(lemma.getParadigmeId());
     assertEquals(0, lemma.getParadigmeId().size());
+  }
+
+  @Test
+  public void testParadigmeIdSetterDefensiveCopy() {
+    Lemma lemma = new Lemma();
+    List<String> paradigmeIds = new ArrayList<>();
+    lemma.setParadigmeId(paradigmeIds);
+    paradigmeIds.add("x");
+    assertEquals(0, lemma.getParadigmeId().size());
+  }
+
+  @Test
+  public void testParadigmeIdGetterDoesNotExposeInternalList() {
+    Lemma lemma = new Lemma();
+    List<String> paradigmeIds = new ArrayList<>();
+    paradigmeIds.add("x");
+    lemma.setParadigmeId(paradigmeIds);
+    try {
+      lemma.getParadigmeId().add("y");
+      fail("Expected UnsupportedOperationException");
+    } catch (UnsupportedOperationException expected) {
+      assertEquals(1, lemma.getParadigmeId().size());
+    }
   }
 
   @Test

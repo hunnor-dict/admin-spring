@@ -1,5 +1,7 @@
 package net.hunnor.dict.admin.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -62,7 +64,7 @@ public class Lemma {
   public Lemma(int id, String grunnform, List<String> paradigmeId) {
     this.id = id;
     this.grunnform = grunnform;
-    this.paradigmeId = paradigmeId;
+    this.paradigmeId = copyParadigmeId(paradigmeId);
   }
 
   public int getId() {
@@ -81,12 +83,28 @@ public class Lemma {
     this.grunnform = grunnform;
   }
 
+  /**
+   * Returns the list of paradigm IDs.
+   * The returned list is an unmodifiable copy of the internal list
+   * to avoid exposing internal state.
+   * @return an unmodifiable list of paradigm IDs, or {@code null} if no paradigm IDs are set
+   */
   public List<String> getParadigmeId() {
-    return paradigmeId;
+    if (paradigmeId == null) {
+      return null;
+    }
+    return Collections.unmodifiableList(new ArrayList<>(paradigmeId));
   }
 
   public void setParadigmeId(List<String> paradigmeId) {
-    this.paradigmeId = paradigmeId;
+    this.paradigmeId = copyParadigmeId(paradigmeId);
+  }
+
+  private List<String> copyParadigmeId(List<String> paradigmeId) {
+    if (paradigmeId == null) {
+      return null;
+    }
+    return new ArrayList<>(paradigmeId);
   }
 
   /**
@@ -96,7 +114,7 @@ public class Lemma {
    */
   public String getFirstLetter(Language language) {
     String firstLetter = null;
-    if (!StringUtils.isEmpty(grunnform)) {
+    if (StringUtils.hasText(grunnform)) {
       int position = 0;
       while (firstLetter == null && position < grunnform.length()) {
         String letter = grunnform.substring(position, position + 1);

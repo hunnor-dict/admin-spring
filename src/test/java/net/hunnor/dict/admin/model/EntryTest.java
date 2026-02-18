@@ -3,8 +3,10 @@ package net.hunnor.dict.admin.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
+import java.util.List;
 import net.hunnor.dict.admin.config.Language;
 import org.junit.Test;
 
@@ -92,8 +94,9 @@ public class EntryTest {
   @Test
   public void testFirstLetter() {
     Entry entry = new Entry();
-    entry.setLemmata(new ArrayList<>());
-    entry.getLemmata().add(new Lemma(1, "abc", null));
+    List<Lemma> lemmata = new ArrayList<>();
+    lemmata.add(new Lemma(1, "abc", null));
+    entry.setLemmata(lemmata);
     assertEquals("A", entry.getFirstLetter(Language.HU));
   }
 
@@ -113,17 +116,42 @@ public class EntryTest {
   @Test
   public void testSortKeyGrunnformNull() {
     Entry entry = new Entry();
-    entry.setLemmata(new ArrayList<>());
-    entry.getLemmata().add(new Lemma());
+    List<Lemma> lemmata = new ArrayList<>();
+    lemmata.add(new Lemma());
+    entry.setLemmata(lemmata);
     assertNull(entry.getSortKey());
   }
 
   @Test
   public void testSortKey() {
     Entry entry = new Entry();
-    entry.setLemmata(new ArrayList<>());
-    entry.getLemmata().add(new Lemma(1, "abc", null));
+    List<Lemma> lemmata = new ArrayList<>();
+    lemmata.add(new Lemma(1, "abc", null));
+    entry.setLemmata(lemmata);
     assertEquals("abc00000000", entry.getSortKey());
+  }
+
+  @Test
+  public void testLemmataSetterDefensiveCopy() {
+    Entry entry = new Entry();
+    List<Lemma> lemmata = new ArrayList<>();
+    entry.setLemmata(lemmata);
+    lemmata.add(new Lemma(1, "abc", null));
+    assertEquals(0, entry.getLemmata().size());
+  }
+
+  @Test
+  public void testLemmataGetterDoesNotExposeInternalList() {
+    Entry entry = new Entry();
+    List<Lemma> lemmata = new ArrayList<>();
+    lemmata.add(new Lemma(1, "abc", null));
+    entry.setLemmata(lemmata);
+    try {
+      entry.getLemmata().add(new Lemma());
+      fail("Expected UnsupportedOperationException");
+    } catch (UnsupportedOperationException expected) {
+      assertEquals(1, entry.getLemmata().size());
+    }
   }
 
 }

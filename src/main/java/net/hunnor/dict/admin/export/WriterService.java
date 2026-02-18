@@ -1,11 +1,8 @@
 package net.hunnor.dict.admin.export;
 
 import java.io.OutputStream;
-import javax.xml.stream.XMLStreamWriter;
 
 public interface WriterService {
-
-  public void setWriter(XMLStreamWriter writer);
 
   public void createWriter(OutputStream outputStream) throws ExportException;
 

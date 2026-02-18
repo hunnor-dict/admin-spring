@@ -1,5 +1,7 @@
 package net.hunnor.dict.admin.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import net.hunnor.dict.admin.config.Language;
@@ -70,12 +72,28 @@ public class Entry {
     this.translation = translation;
   }
 
+  /**
+   * Returns the list of lemmata.
+   * The returned list is an unmodifiable copy of the internal list
+   * to avoid exposing internal state.
+   * @return an unmodifiable list of lemmata, or {@code null} if no lemmata are set
+   */
   public List<Lemma> getLemmata() {
-    return lemmata;
+    if (lemmata == null) {
+      return null;
+    }
+    return Collections.unmodifiableList(new ArrayList<>(lemmata));
   }
 
   public void setLemmata(List<Lemma> lemmata) {
-    this.lemmata = lemmata;
+    this.lemmata = copyLemmata(lemmata);
+  }
+
+  private List<Lemma> copyLemmata(List<Lemma> lemmata) {
+    if (lemmata == null) {
+      return null;
+    }
+    return new ArrayList<>(lemmata);
   }
 
   /**
