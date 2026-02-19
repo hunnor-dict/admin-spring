@@ -2,42 +2,72 @@ package net.hunnor.dict.admin.config;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.util.StringUtils;
 
 @Configuration
 @EnableConfigurationProperties(SecurityUsersProperties.class)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
-  @Autowired
-  private SecurityUsersProperties securityUsersProperties;
+  private final List<ConfiguredUser> configuredUsers;
 
-  @Autowired
-  private SecurityProperties securityProperties;
+  private final SecurityProperties securityProperties;
 
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    super.configure(http);
-    http.csrf().disable();
+  /**
+   * Creates security configuration with injected user sources.
+   *
+   * @param securityUsersProperties custom configured users
+   * @param securityProperties Spring Boot default security user properties
+   */
+  public SecurityConfig(
+      SecurityUsersProperties securityUsersProperties,
+      SecurityProperties securityProperties) {
+    this.configuredUsers = copyConfiguredUsers(securityUsersProperties.getUsers());
+    this.securityProperties = securityProperties;
   }
 
-  @Override
-  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+  /**
+   * Builds the HTTP security filter chain.
+   *
+   * @param http HTTP security builder
+   * @return configured security filter chain
+   * @throws Exception if the security chain cannot be built
+   */
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http
+        .authorizeHttpRequests((requests) -> requests.anyRequest().authenticated())
+        .formLogin(Customizer.withDefaults())
+        .httpBasic(Customizer.withDefaults())
+        .csrf((csrf) -> csrf.disable());
+    return http.build();
+  }
+
+  /**
+   * Builds an in-memory user details service from configured users.
+   *
+   * @return in-memory user details service
+   */
+  @Bean
+  public UserDetailsService userDetailsService() {
     PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     List<UserDetails> userDetails = new ArrayList<>();
 
-    if (StringUtils.hasText(securityProperties.getUser().getName())) {
+    if (StringUtils.hasText(securityProperties.getUser().getName())
+        && StringUtils.hasText(securityProperties.getUser().getPassword())) {
       String[] roles = securityProperties.getUser().getRoles().toArray(new String[0]);
       if (roles.length == 0) {
         roles = new String[] {"USER"};
@@ -50,12 +80,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
               passwordEncoder));
     }
 
-    for (SecurityUsersProperties.UserConfig configuredUser : securityUsersProperties.getUsers()) {
-      if (!StringUtils.hasText(configuredUser.getUsername())
-          || !StringUtils.hasText(configuredUser.getPassword())) {
+    for (ConfiguredUser configuredUser : configuredUsers) {
+      if (!StringUtils.hasText(configuredUser.username)
+          || !StringUtils.hasText(configuredUser.password)) {
         continue;
       }
-      List<String> roles = configuredUser.getRoles();
+      List<String> roles = configuredUser.roles;
       String[] rolesArray;
       if (roles.isEmpty()) {
         rolesArray = new String[] {"USER"};
@@ -64,18 +94,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       }
       userDetails.add(
           toUser(
-              configuredUser.getUsername(),
-              configuredUser.getPassword(),
+              configuredUser.username,
+              configuredUser.password,
               rolesArray,
               passwordEncoder));
     }
 
-    if (!userDetails.isEmpty()) {
-      auth.inMemoryAuthentication().withUser(userDetails.get(0));
-      for (int index = 1; index < userDetails.size(); index++) {
-        auth.inMemoryAuthentication().withUser(userDetails.get(index));
-      }
+    if (userDetails.isEmpty()) {
+      throw new IllegalStateException("No valid security users configured");
     }
+
+    return new InMemoryUserDetailsManager(userDetails);
   }
 
   private UserDetails toUser(
@@ -90,6 +119,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     UserBuilder builder = User.withUsername(username).password(storedPassword);
     builder.roles(roles);
     return builder.build();
+  }
+
+  private List<ConfiguredUser> copyConfiguredUsers(List<SecurityUsersProperties.UserConfig> users) {
+    List<ConfiguredUser> copiedUsers = new ArrayList<>();
+    for (SecurityUsersProperties.UserConfig user : users) {
+      copiedUsers.add(
+          new ConfiguredUser(user.getUsername(), user.getPassword(), List.copyOf(user.getRoles())));
+    }
+    return List.copyOf(copiedUsers);
+  }
+
+  private static class ConfiguredUser {
+
+    private final String username;
+
+    private final String password;
+
+    private final List<String> roles;
+
+    ConfiguredUser(String username, String password, List<String> roles) {
+      this.username = username;
+      this.password = password;
+      this.roles = roles;
+    }
   }
 
 }

@@ -1,8 +1,8 @@
 package net.hunnor.dict.admin.export;
 
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
-import javax.servlet.http.HttpServletResponse;
 import net.hunnor.dict.admin.config.Language;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
