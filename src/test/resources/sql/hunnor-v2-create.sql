@@ -1,11 +1,11 @@
 CREATE TABLE IF NOT EXISTS hn_hun_segment (
-  id INT(10) NOT NULL,
-  entry INT(10) NOT NULL,
+  id INT NOT NULL,
+  entry INT NOT NULL,
   orth VARCHAR(128) NOT NULL,
   pos VARCHAR(8) NOT NULL,
   par VARCHAR(4) NOT NULL,
-  seq TINYINT(3) NOT NULL,
-  status TINYINT(3) NOT NULL
+  seq TINYINT NOT NULL,
+  status TINYINT NOT NULL
 );
 
 CREATE INDEX IF NOT EXISTS HN_ID ON hn_hun_segment(id);
@@ -13,20 +13,20 @@ CREATE INDEX IF NOT EXISTS HN_ENTRY ON hn_hun_segment(entry);
 CREATE INDEX IF NOT EXISTS HN_ORTH ON hn_hun_segment(orth);
 
 CREATE TABLE IF NOT EXISTS hn_hun_tr_nob_tmp (
-  id INT(10) NOT NULL,
+  id INT NOT NULL,
   trans VARCHAR(65535) NOT NULL
 );
 
 CREATE INDEX IF NOT EXISTS HN_TR ON hn_hun_tr_nob_tmp(id);
 
 CREATE TABLE IF NOT EXISTS hn_nob_segment (
-  id INT(10) NOT NULL,
-  entry INT(10) NOT NULL,
+  id INT NOT NULL,
+  entry INT NOT NULL,
   orth VARCHAR(128) NOT NULL,
   pos VARCHAR(8) NOT NULL,
   par VARCHAR(4) NOT NULL,
-  seq TINYINT(3) NOT NULL,
-  status TINYINT(3) NOT NULL
+  seq TINYINT NOT NULL,
+  status TINYINT NOT NULL
 );
 
 CREATE INDEX IF NOT EXISTS NH_ID ON hn_nob_segment(id);
@@ -34,7 +34,7 @@ CREATE INDEX IF NOT EXISTS NH_ENTRY ON hn_nob_segment(entry);
 CREATE INDEX IF NOT EXISTS NH_ORTH ON hn_nob_segment(orth);
 
 CREATE TABLE IF NOT EXISTS hn_nob_tr_hun_tmp (
-  id INT(10) NOT NULL,
+  id INT NOT NULL,
   trans VARCHAR(65535) NOT NULL
 );
 
