@@ -96,6 +96,12 @@ public class EditServiceImpl implements EditService {
   @Autowired
   private JdbcTemplate jdbcTemplate;
 
+  @Autowired
+  private LegacyExportService legacyExportService;
+
+  @Autowired
+  private SolrService solrService;
+
   /**
    * Lists entries by language and the provided filters.
    *
@@ -185,22 +191,36 @@ public class EditServiceImpl implements EditService {
       String status,
       String editorId) {
 
+    logger.debug("EditService.save requested: "
+        + "language='{}', id='{}', entryValue='{}', pos='{}', status='{}', editorId='{}'",
+        language,
+        id,
+        entryValue,
+        pos,
+        status,
+        editorId);
+
     String normalizedLanguage = normalizeLanguage(language);
     SaveResult result = new SaveResult();
     LegacyEntry current = loadEntry(normalizedLanguage, id, true, null);
 
     if (!current.isExists()) {
+      logger.debug("EditService.save aborted: entry does not exist for language='{}', id='{}'",
+          normalizedLanguage, id);
       result.addError(String.format(MISSING_ENTRY_ERROR, normalizedLanguage, id));
       return result;
     }
 
     if (!acceptsPos(normalizedLanguage, pos)) {
+      logger.debug("EditService.save aborted: invalid part-of-speech '{}' for language='{}'",
+          pos, normalizedLanguage);
       result.addError(
           "A(z) '" + normalizedLanguage + "' nyelvben nincs '" + pos + "' szófaj.");
       return result;
     }
 
     if (!acceptsStatus(status)) {
+      logger.debug("EditService.save aborted: invalid status='{}'", status);
       result.addError("Érvénytelen státusz: '" + status + "'.");
       return result;
     }
@@ -209,6 +229,12 @@ public class EditServiceImpl implements EditService {
     Integer entryGroup = parseEntryGroup(entryValue, id);
     if (StringUtils.hasText(entryValue)
         && !acceptsEntry(normalizedLanguage, tableNames, entryGroup)) {
+      logger.debug("EditService.save aborted: "
+          + "invalid entry reference. language='{}', id='{}', entryValue='{}', parsedEntryGroup={}",
+          normalizedLanguage,
+          id,
+          entryValue,
+          entryGroup);
       result.addError(
           "A(z) '" + normalizedLanguage + "' nyelvben nem hivatkozhatsz '"
               + entryValue
@@ -220,12 +246,15 @@ public class EditServiceImpl implements EditService {
     try {
       newForms = parseForms(formsYaml);
     } catch (IllegalArgumentException ex) {
+      logger.debug("EditService.save aborted: forms YAML validation failed: {}", ex.getMessage());
       result.addError(ex.getMessage());
       return result;
     }
 
     List<String> translationErrors = validateTrans(normalizedLanguage, translation);
     if (!translationErrors.isEmpty()) {
+      logger.debug("EditService.save aborted: "
+          + "translation validation failed with {} error(s)", translationErrors.size());
       result.addErrors(translationErrors);
       return result;
     }
@@ -233,6 +262,7 @@ public class EditServiceImpl implements EditService {
     List<SqlCommand> commands = new ArrayList<>();
     String action;
     String effectiveId = id;
+    Integer solrEntryGroup;
     Integer statusValue = Integer.valueOf(status);
 
     if ("N".equals(id)) {
@@ -243,6 +273,7 @@ public class EditServiceImpl implements EditService {
       int newId = maxId == null ? 1 : maxId + 1;
       effectiveId = String.valueOf(newId);
       Integer insertEntryGroup = StringUtils.hasText(entryValue) ? entryGroup : newId;
+      solrEntryGroup = insertEntryGroup;
       addInsertForms(
           commands,
           tableNames,
@@ -254,6 +285,7 @@ public class EditServiceImpl implements EditService {
       result.setAddition(effectiveId);
     } else {
       action = "update";
+      solrEntryGroup = entryGroup;
       addUpdateForms(
           commands,
           tableNames,
@@ -298,7 +330,20 @@ public class EditServiceImpl implements EditService {
       result.addSql(command.rendered);
     }
 
+    String xml = legacyExportService.exportEntryXml(normalizedLanguage, effectiveId);
+    logger.debug("EditService.save invoking SolrService.save: "
+        + "language='{}', effectiveId='{}', solrEntryGroup={}, xmlLength={}",
+        normalizedLanguage,
+        effectiveId,
+        solrEntryGroup,
+        xml == null ? 0 : xml.length());
+    solrService.save(normalizedLanguage, effectiveId, solrEntryGroup, xml);
+    logger.debug("EditService.save completed SolrService.save for effectiveId='{}'", effectiveId);
+
     result.setSuccess(true);
+    logger.debug("EditService.save completed successfully: "
+        + "language='{}', effectiveId='{}', action='{}'",
+        normalizedLanguage, effectiveId, action);
     return result;
   }
 
@@ -338,6 +383,8 @@ public class EditServiceImpl implements EditService {
       jdbcTemplate.update(sqlQuery, command.params);
       result.addSql(command.rendered);
     }
+
+    solrService.delete(normalizedLanguage, id, current.getEntry());
 
     result.setDeleted(true);
     return result;
