@@ -23,7 +23,7 @@
 	<properties>
 		<bootstrap.version>4.6.0-1</bootstrap.version>
 		<checkstyle.version>3.1.1</checkstyle.version>
-		<codemirror.version>5.62.2</codemirror.version>
+		<codemirror.version>5.65.20</codemirror.version>
 		<jacoco.version>0.8.8</jacoco.version>
 		<java.version>17</java.version>
 		<mysql.connector.version>8.0.33</mysql.connector.version>
