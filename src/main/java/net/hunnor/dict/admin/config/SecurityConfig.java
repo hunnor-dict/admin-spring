@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -26,6 +27,12 @@ public class SecurityConfig {
 
   private final SecurityProperties securityProperties;
 
+  private final String rememberMeKey;
+
+  private final int rememberMeValiditySeconds;
+
+  private final boolean rememberMeSecureCookie;
+
   /**
    * Creates security configuration with injected user sources.
    *
@@ -34,9 +41,18 @@ public class SecurityConfig {
    */
   public SecurityConfig(
       SecurityUsersProperties securityUsersProperties,
-      SecurityProperties securityProperties) {
+      SecurityProperties securityProperties,
+      @Value("${net.hunnor.dict.admin.security.remember-me.key:admin-spring-remember-me-key}")
+          String rememberMeKey,
+      @Value("${net.hunnor.dict.admin.security.remember-me.validity-seconds:2592000}")
+          int rememberMeValiditySeconds,
+      @Value("${net.hunnor.dict.admin.security.remember-me.secure-cookie:false}")
+          boolean rememberMeSecureCookie) {
     this.configuredUsers = copyConfiguredUsers(securityUsersProperties.getUsers());
     this.securityProperties = securityProperties;
+    this.rememberMeKey = rememberMeKey;
+    this.rememberMeValiditySeconds = rememberMeValiditySeconds;
+    this.rememberMeSecureCookie = rememberMeSecureCookie;
   }
 
   /**
@@ -51,7 +67,17 @@ public class SecurityConfig {
     http
         .authorizeHttpRequests((requests) -> requests.anyRequest().authenticated())
         .formLogin(Customizer.withDefaults())
+      .rememberMe(
+        (rememberMe) ->
+          rememberMe
+            .key(rememberMeKey)
+            .alwaysRemember(true)
+            .rememberMeCookieName("ADMIN_REMEMBER_ME")
+            .useSecureCookie(rememberMeSecureCookie)
+            .tokenValiditySeconds(rememberMeValiditySeconds))
         .httpBasic(Customizer.withDefaults())
+      .logout(
+        (logout) -> logout.deleteCookies("JSESSIONID", "ADMIN_REMEMBER_ME"))
         .csrf((csrf) -> csrf.disable());
     return http.build();
   }
