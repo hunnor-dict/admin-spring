@@ -70,6 +70,10 @@ body {
 	color: green;
 }
 
+#priv-list-results ol {
+	line-height: 1.2em;
+}
+
 #priv-list-results p {
 	margin: 0;
 }
@@ -86,6 +90,10 @@ body {
 
 #priv-edit-results {
 	margin-top: .5em;
+}
+
+.CodeMirror {
+    line-height: 1em;
 }
 
 .CodeMirror-gutters {
