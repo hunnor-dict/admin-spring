@@ -5,6 +5,9 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Inflection.
+ */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Inflection {

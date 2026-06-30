@@ -30,6 +30,9 @@ import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+/**
+ * Service for exporting entries from the legacy format.
+ */
 @Service
 public class LegacyExportServiceImpl implements LegacyExportService {
 

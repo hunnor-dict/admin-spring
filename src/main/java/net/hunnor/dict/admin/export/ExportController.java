@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Controller for exporting the dictionary database as XML.
+ */
 @RestController
 public class ExportController {
 
@@ -22,6 +25,7 @@ public class ExportController {
 
   /**
    * Exports the dictionary database as XML.
+   *
    * @param response the HTTP response object
    */
   @GetMapping("/export")

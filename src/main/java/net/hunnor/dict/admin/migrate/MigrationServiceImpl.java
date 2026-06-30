@@ -17,6 +17,9 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+/**
+ * Implementation of {@link MigrationService}.
+ */
 @Service
 public class MigrationServiceImpl implements MigrationService {
 

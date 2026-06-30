@@ -26,6 +26,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+/**
+ * Test for {@link ExportService}.
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Sql(scripts = {"classpath:sql/hunnor-v3-create.sql", "classpath:sql/hunnor-v3-insert-export.sql"})
@@ -44,6 +47,7 @@ public class ExportServiceTest {
 
   /**
    * Export and parse the result.
+   *
    * @throws ExportException if export fails
    */
   @Before
@@ -99,7 +103,7 @@ public class ExportServiceTest {
   @Test
   public void testHuEntry1() throws XPathExpressionException {
 
-    XPath xpath = getXPath();
+    XPath xpath = getXpath();
 
     Element entry = (Element) xpath
         .compile("/h:hnDict/h:entryGrp/h:entry[@id = '1']")
@@ -136,7 +140,7 @@ public class ExportServiceTest {
   @Test
   public void testHuEntry2() throws XPathExpressionException {
 
-    XPath xpath = getXPath();
+    XPath xpath = getXpath();
 
     Element entry = (Element) xpath
         .compile("/h:hnDict/h:entryGrp/h:entry[@id = '2']")
@@ -232,7 +236,7 @@ public class ExportServiceTest {
   @Test
   public void testNbEntry1() throws XPathExpressionException {
 
-    XPath xpath = getXPath();
+    XPath xpath = getXpath();
 
     Element entry = (Element) xpath
         .compile("/h:hnDict/h:entryGrp/h:entry[@id = '1']")
@@ -305,7 +309,7 @@ public class ExportServiceTest {
   @Test
   public void testNbEntry2() throws XPathExpressionException {
 
-    XPath xpath = getXPath();
+    XPath xpath = getXpath();
 
     Element entry = (Element) xpath
         .compile("/h:hnDict/h:entryGrp/h:entry[@id = '2']")
@@ -398,7 +402,7 @@ public class ExportServiceTest {
   @Test
   public void testNbEntry3() throws XPathExpressionException {
 
-    XPath xpath = getXPath();
+    XPath xpath = getXpath();
 
     Element entry = (Element) xpath
         .compile("/h:hnDict/h:entryGrp/h:entry[@id = '3']")
@@ -463,7 +467,7 @@ public class ExportServiceTest {
   @Test
   public void testNbEntry5() throws XPathExpressionException {
 
-    XPath xpath = getXPath();
+    XPath xpath = getXpath();
 
     Element entry = (Element) xpath
         .compile("/h:hnDict/h:entryGrp/h:entry[@id = '5']")
@@ -558,7 +562,7 @@ public class ExportServiceTest {
   @Test
   public void testNbEntry7() throws XPathExpressionException {
 
-    XPath xpath = getXPath();
+    XPath xpath = getXpath();
 
     Element entry = (Element) xpath
         .compile("/h:hnDict/h:entryGrp/h:entry[@id = '7']")
@@ -601,7 +605,7 @@ public class ExportServiceTest {
   @Test
   public void testNbEntry8() throws XPathExpressionException {
 
-    XPath xpath = getXPath();
+    XPath xpath = getXpath();
 
     Element entry = (Element) xpath
         .compile("/h:hnDict/h:entryGrp/h:entry[@id = '8']")
@@ -644,7 +648,7 @@ public class ExportServiceTest {
   @Test
   public void testNbEntry9() throws XPathExpressionException {
 
-    XPath xpath = getXPath();
+    XPath xpath = getXpath();
 
     Element entry = (Element) xpath
         .compile("/h:hnDict/h:entryGrp/h:entry[@id = '9']")
@@ -717,7 +721,7 @@ public class ExportServiceTest {
   @Test
   public void testNbEntry10() throws XPathExpressionException {
 
-    XPath xpath = getXPath();
+    XPath xpath = getXpath();
 
     Element entry = (Element) xpath
         .compile("/h:hnDict/h:entryGrp/h:entry[@id = '10']")
@@ -760,7 +764,7 @@ public class ExportServiceTest {
   @Test
   public void testNbEntry11() throws XPathExpressionException {
 
-    XPath xpath = getXPath();
+    XPath xpath = getXpath();
 
     Element entry = (Element) xpath
         .compile("/h:hnDict/h:entryGrp/h:entry[@id = '11']")
@@ -803,7 +807,7 @@ public class ExportServiceTest {
   @Test
   public void testNbEntry12() throws XPathExpressionException {
 
-    XPath xpath = getXPath();
+    XPath xpath = getXpath();
 
     Element entry = (Element) xpath
         .compile("/h:hnDict/h:entryGrp/h:entry[@id = '12']")
@@ -852,7 +856,7 @@ public class ExportServiceTest {
   @Test
   public void testNbEntry99() throws XPathExpressionException {
 
-    XPath xpath = getXPath();
+    XPath xpath = getXpath();
 
     Element entry = (Element) xpath
         .compile("/h:hnDict/h:entryGrp/h:entry[@id = '99']")
@@ -862,7 +866,7 @@ public class ExportServiceTest {
 
   }
 
-  private XPath getXPath() {
+  private XPath getXpath() {
     XPath xpath = XPathFactory.newInstance().newXPath();
     xpath.setNamespaceContext(new NamespaceContext() {
 

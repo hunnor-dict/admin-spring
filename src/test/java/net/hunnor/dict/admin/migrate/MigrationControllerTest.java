@@ -14,6 +14,9 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+/**
+ * Tests for {@link MigrationController}.
+ */
 @RunWith(SpringRunner.class)
 @WebMvcTest(MigrationController.class)
 public class MigrationControllerTest {

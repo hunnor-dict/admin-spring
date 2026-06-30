@@ -2,6 +2,9 @@ package net.hunnor.dict.admin.edit;
 
 import java.util.List;
 
+/**
+ * Service for editing entries.
+ */
 public interface EditService {
 
   /**

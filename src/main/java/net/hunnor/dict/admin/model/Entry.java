@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Locale;
 import net.hunnor.dict.admin.config.Language;
 
+/**
+ * Model for a dictionary entry.
+ */
 public class Entry {
 
   private int id;
@@ -28,6 +31,7 @@ public class Entry {
 
   /**
    * Constructor with all fields.
+   *
    * @param id the id of the new Entry
    * @param status the translation status
    * @param pos the part of speech
@@ -76,6 +80,7 @@ public class Entry {
    * Returns the list of lemmata.
    * The returned list is an unmodifiable copy of the internal list
    * to avoid exposing internal state.
+   *
    * @return an unmodifiable list of lemmata, or {@code null} if no lemmata are set
    */
   public List<Lemma> getLemmata() {
@@ -98,6 +103,7 @@ public class Entry {
 
   /**
    * Returns the letter the entry belongs to.
+   *
    * @param language the language which alphabet to use
    * @return a letter from the alphabet of the specified language
    */
@@ -112,6 +118,7 @@ public class Entry {
 
   /**
    * Generate the key by which entries are sorted alphabetically.
+   *
    * @return the sort key
    */
   public String getSortKey() {

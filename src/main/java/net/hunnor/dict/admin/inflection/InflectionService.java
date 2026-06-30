@@ -3,6 +3,9 @@ package net.hunnor.dict.admin.inflection;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Service interface for inflection-related operations.
+ */
 public interface InflectionService {
 
   public String getCodes(List<String> paradigms);

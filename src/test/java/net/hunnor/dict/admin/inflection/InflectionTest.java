@@ -5,6 +5,9 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
+/**
+ * Tests for the {@link Inflection} model.
+ */
 public class InflectionTest {
 
   @Test

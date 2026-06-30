@@ -11,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
+/**
+ * Model for a lemma.
+ */
 public class Lemma {
 
   private static final Logger logger = LoggerFactory.getLogger(Lemma.class);
@@ -57,6 +60,7 @@ public class Lemma {
 
   /**
    * Constructor with all fields.
+   *
    * @param id the id of the new Lemma
    * @param grunnform the spelling of the lemma
    * @param paradigmeId a list of paradigm IDs
@@ -87,6 +91,7 @@ public class Lemma {
    * Returns the list of paradigm IDs.
    * The returned list is an unmodifiable copy of the internal list
    * to avoid exposing internal state.
+   *
    * @return an unmodifiable list of paradigm IDs, or {@code null} if no paradigm IDs are set
    */
   public List<String> getParadigmeId() {
@@ -109,6 +114,7 @@ public class Lemma {
 
   /**
    * Returns the letter the lemma belongs to.
+   *
    * @param language the language which alphabet to use
    * @return a letter from the alphabet of the specified language
    */
@@ -149,7 +155,7 @@ public class Lemma {
     return expandedLetter;
   }
 
-  private String normalizeLetter(String letter,Language language) {
+  private String normalizeLetter(String letter, Language language) {
     String normalizedLetter = letter.toUpperCase(Locale.getDefault());
     String pattern = "[A-Z]";
     switch (language) {

@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Controller for migrating the dictionary database to a new version.
+ */
 @RestController
 public class MigrationController {
 

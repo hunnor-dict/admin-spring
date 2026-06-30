@@ -34,6 +34,9 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.yaml.snakeyaml.Yaml;
 
+/**
+ * Implementation of the EditService interface.
+ */
 @Service
 public class EditServiceImpl implements EditService {
 

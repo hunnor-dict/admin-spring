@@ -5,6 +5,9 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
+/**
+ * Test for {@link Application}.
+ */
 public class ApplicationTest {
 
   private static final String SERVER_PORT = "server.port";

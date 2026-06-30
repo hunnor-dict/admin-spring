@@ -10,6 +10,9 @@ import java.util.List;
 import net.hunnor.dict.admin.config.Language;
 import org.junit.Test;
 
+/**
+ * Tests for the {@link Entry} model.
+ */
 public class EntryTest {
 
   @Test

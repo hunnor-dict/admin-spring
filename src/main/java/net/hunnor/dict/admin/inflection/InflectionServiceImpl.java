@@ -17,6 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.Unmarshaller;
 import org.springframework.stereotype.Service;
 
+/**
+ * Implementation of the InflectionService interface.
+ */
 @Service
 public final class InflectionServiceImpl implements InflectionService {
 
@@ -36,7 +39,7 @@ public final class InflectionServiceImpl implements InflectionService {
     Source source = new StreamSource(inputStream);
     try {
       Inflections inflections = (Inflections) unmarshaller.unmarshal(source);
-      for (Inflection inflection: inflections.getInflectionList()) {
+      for (Inflection inflection : inflections.getInflectionList()) {
         inflectionMap.put(inflection.getParadigms(), inflection);
       }
     } catch (IOException ex) {
@@ -46,6 +49,7 @@ public final class InflectionServiceImpl implements InflectionService {
 
   /**
    * Return paradigm labels for a list of paradigm IDs.
+   *
    * @param paradigms the paradigm codes
    * @return the labels as a single string
    */
@@ -60,6 +64,7 @@ public final class InflectionServiceImpl implements InflectionService {
 
   /**
    * Return suffixes for a list of paradigm IDs.
+   *
    * @param paradigms the paradigm codes
    * @return the suffixes as a single string
    */
@@ -74,6 +79,7 @@ public final class InflectionServiceImpl implements InflectionService {
 
   /**
    * Generate inflected forms of a lemma.
+   *
    * @param lemma the base form
    * @param patterns the inflection patterns
    * @return inflected forms in a map by form number
@@ -86,7 +92,7 @@ public final class InflectionServiceImpl implements InflectionService {
       if (basePatternKeyOpt.isPresent()) {
         int basePatternKey = basePatternKeyOpt.get();
         String basePattern = patterns.get(basePatternKey);
-        for (Entry<Integer, String> entry: patterns.entrySet()) {
+        for (Entry<Integer, String> entry : patterns.entrySet()) {
           String pattern = patterns.get(entry.getKey());
           if (!"-".equals(pattern)) {
             String inflection = inflect(basePattern, pattern, lemma);

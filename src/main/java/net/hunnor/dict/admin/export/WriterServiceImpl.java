@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+/**
+ * Implementation of {@link WriterService}.
+ */
 @Service
 public class WriterServiceImpl implements WriterService {
 
@@ -34,6 +37,7 @@ public class WriterServiceImpl implements WriterService {
 
   /**
    * Write the document start.
+   *
    * @param encoding the encoding
    * @param version the version
    * @throws ExportException if write fails
@@ -48,6 +52,7 @@ public class WriterServiceImpl implements WriterService {
 
   /**
    * Write the document end.
+   *
    * @throws ExportException if write fails
    */
   public void writeEndDocument() throws ExportException {
@@ -60,6 +65,7 @@ public class WriterServiceImpl implements WriterService {
 
   /**
    * Write a start element.
+   *
    * @param name the element name
    * @throws ExportException if write fails
    */
@@ -73,6 +79,7 @@ public class WriterServiceImpl implements WriterService {
 
   /**
    * Write an end element.
+   *
    * @throws ExportException if write fails
    */
   public void writeEndElement() throws ExportException {
@@ -85,6 +92,7 @@ public class WriterServiceImpl implements WriterService {
 
   /**
    * Write an attribute.
+   *
    * @param name the attribute name
    * @param value the attribute value
    * @throws ExportException if write fails
@@ -99,6 +107,7 @@ public class WriterServiceImpl implements WriterService {
 
   /**
    * Write characters.
+   *
    * @param characters the characters to write
    * @throws ExportException if write fails
    */
@@ -112,6 +121,7 @@ public class WriterServiceImpl implements WriterService {
 
   /**
    * Flush the output.
+   *
    * @throws ExportException if flush fails
    */
   public void flush() throws ExportException {
@@ -124,6 +134,7 @@ public class WriterServiceImpl implements WriterService {
 
   /**
    * Close the output.
+   *
    * @throws ExportException if close fails
    */
   public void close() throws ExportException {

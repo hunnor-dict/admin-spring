@@ -5,11 +5,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.oxm.Unmarshaller;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
+/**
+ * Configuration for the JAXB unmarshaller.
+ */
 @Configuration
 public class UnmarshallerConfig {
 
   /**
    * Create a JAXB marshaller for the inflection classes.
+   *
    * @return the marshaller object
    */
   @Bean

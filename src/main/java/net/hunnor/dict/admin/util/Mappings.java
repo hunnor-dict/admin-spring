@@ -3,6 +3,9 @@ package net.hunnor.dict.admin.util;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Utility class for managing Norsk ordbank and HunNor ID mappings.
+ */
 public class Mappings {
 
   private static Map<Integer, Integer> idMap = new HashMap<>();

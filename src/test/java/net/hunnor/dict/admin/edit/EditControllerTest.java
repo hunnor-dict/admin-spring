@@ -12,6 +12,9 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+/**
+ * Tests for {@link EditController}.
+ */
 @RunWith(SpringRunner.class)
 @WebMvcTest(EditController.class)
 public class EditControllerTest {

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Inflections.
+ */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Inflections {
@@ -19,6 +22,7 @@ public class Inflections {
    * Returns the list of inflections.
    * The returned list is an unmodifiable copy of the internal list
    * to avoid exposing internal state.
+   *
    * @return an unmodifiable list of inflections, or {@code null} if no inflections are set
    */
   public List<Inflection> getInflectionList() {

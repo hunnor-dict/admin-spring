@@ -28,6 +28,9 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ * Implementation of {@link ExportService}.
+ */
 @RequestScope
 @Service
 public class ExportServiceImpl implements ExportService {
@@ -252,7 +255,7 @@ public class ExportServiceImpl implements ExportService {
 
     List<String> sortedEntries = entriesByLetter.keySet().stream()
         .sorted(collator).collect(Collectors.toList());
-    for (String letter: sortedEntries) {
+    for (String letter : sortedEntries) {
       writeEntriesForLetter(letter, entriesByLetter.get(letter));
     }
 
@@ -272,7 +275,7 @@ public class ExportServiceImpl implements ExportService {
     List<Entry> sortedEntries = entries.stream()
         .sorted(Comparator.comparing(Entry::getSortKey))
         .collect(Collectors.toList());
-    for (Entry entry: sortedEntries) {
+    for (Entry entry : sortedEntries) {
       writeEntry(entry);
     }
 

@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import net.hunnor.dict.admin.config.Language;
 
+/**
+ * SQL snippets for the editor.
+ */
 public class SqlSnippets {
 
   public static final String ENTRY_HU = "SELECT POS, STATUS, TRANSLATION "
@@ -124,6 +127,7 @@ public class SqlSnippets {
 
   /**
    * SQL snippet for selecting lemma for a language by first letter.
+   *
    * @param language the language
    * @param letter the first letter
    * @return the SQL condition as String

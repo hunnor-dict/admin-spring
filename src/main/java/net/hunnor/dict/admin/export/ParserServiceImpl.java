@@ -21,6 +21,9 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+/**
+ * Implementation of {@link ParserService}.
+ */
 @Service
 public class ParserServiceImpl implements ParserService {
 
@@ -33,6 +36,7 @@ public class ParserServiceImpl implements ParserService {
 
   /**
    * Set up the schema and the factory used by the parse method.
+   *
    * @throws SAXException if an error occurs while parsing the schema
    * @throws IOException if an error occurs while reading the schema
    */

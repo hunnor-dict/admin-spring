@@ -19,6 +19,9 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.util.StringUtils;
 
+/**
+ * Security configuration for the admin application.
+ */
 @Configuration
 @EnableConfigurationProperties(SecurityUsersProperties.class)
 public class SecurityConfig {

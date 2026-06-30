@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+/**
+ * Implementation of {@link SolrService}.
+ */
 @Service
 public class SolrServiceImpl implements SolrService {
 

@@ -21,6 +21,9 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
+/**
+ * Test for {@link WriterService}.
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class WriterServiceTest {

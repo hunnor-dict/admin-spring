@@ -7,6 +7,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a dictionary entry in the legacy format.
+ */
 public class LegacyEntry {
 
   private String lang;

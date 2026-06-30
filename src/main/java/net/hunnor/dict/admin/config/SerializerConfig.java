@@ -6,11 +6,15 @@ import net.sf.saxon.s9api.Serializer.Property;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Configuration class for defining XML serializer.
+ */
 @Configuration
 public class SerializerConfig {
 
   /**
    * Create an XML serializer.
+   *
    * @return the serializer object
    */
   @Bean

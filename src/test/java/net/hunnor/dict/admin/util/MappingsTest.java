@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+/**
+ * Tests for the ID mappings.
+ */
 public class MappingsTest {
 
   @Test

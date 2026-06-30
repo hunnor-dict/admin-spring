@@ -14,6 +14,9 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+/**
+ * Test for {@link ExportController}.
+ */
 @RunWith(SpringRunner.class)
 @WebMvcTest(ExportController.class)
 public class ExportControllerTest {

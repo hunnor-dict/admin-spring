@@ -16,6 +16,9 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
+/**
+ * Tests for {@link MigrationService}.
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Sql(scripts = {"classpath:sql/hunnor-v2-create.sql", "classpath:sql/hunnor-v2-insert-migrate.sql"})
@@ -56,6 +59,7 @@ public class MigrationServiceTest {
 
   /**
    * Migrate data before the tests.
+   *
    * @throws MigrationException if migration fails
    */
   @Before

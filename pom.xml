@@ -22,15 +22,15 @@
 
 	<properties>
 		<bootstrap.version>4.6.0-1</bootstrap.version>
-		<checkstyle.version>3.1.1</checkstyle.version>
+		<checkstyle.version>3.6.0</checkstyle.version>
 		<codemirror.version>5.65.20</codemirror.version>
-		<jacoco.version>0.8.8</jacoco.version>
-		<java.version>17</java.version>
+		<jacoco.version>0.8.15</jacoco.version>
+		<java.version>25</java.version>
 		<mysql.connector.version>8.0.33</mysql.connector.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<saxon.version>10.3</saxon.version>
-		<spotbugs.version>4.7.3.0</spotbugs.version>
+		<spotbugs.version>4.10.2.0</spotbugs.version>
 	</properties>
 
 	<dependencies>
@@ -124,7 +124,7 @@
 						<configuration>
 							<rules>
 								<requireMavenVersion>
-									<version>3.3.9</version>
+									<version>3.9</version>
 								</requireMavenVersion>
 							</rules>
 						</configuration>

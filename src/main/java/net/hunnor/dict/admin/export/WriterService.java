@@ -2,6 +2,9 @@ package net.hunnor.dict.admin.export;
 
 import java.io.OutputStream;
 
+/**
+ * Interface for writing XML documents.
+ */
 public interface WriterService {
 
   public void createWriter(OutputStream outputStream) throws ExportException;

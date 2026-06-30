@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * Configuration properties for security users.
+ */
 @ConfigurationProperties(prefix = "net.hunnor.dict.admin.security")
 public class SecurityUsersProperties {
 
@@ -31,6 +34,9 @@ public class SecurityUsersProperties {
     this.users = new ArrayList<>(users);
   }
 
+  /**
+   * Configuration properties for a security user.
+   */
   public static class UserConfig {
 
     private String username;
@@ -97,4 +103,5 @@ public class SecurityUsersProperties {
       this.roles = new ArrayList<>(roles);
     }
   }
+
 }
